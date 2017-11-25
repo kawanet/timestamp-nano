@@ -1,0 +1,40 @@
+{
+  "name": "timestamp-nano",
+  "description": "Timestamp for 64-bit time_t, nanosecond precision and strftime",
+  "version": "0.1.0",
+  "auther": "@kawanet",
+  "bugs": {
+    "url": "https://github.com/kawanet/timestamp-nano/issues"
+  },
+  "devDependencies": {
+    "int64-buffer": "^0.1.9",
+    "jsdoc": "^3.5.5",
+    "jshint": "^2.9.5",
+    "mocha": "^4.0.1",
+    "uglify-js": "^3.2.0"
+  },
+  "homepage": "https://github.com/kawanet/timestamp-nano#readme",
+  "jshintConifg": {
+    "undef": true,
+    "node": true
+  },
+  "keywords": [
+    "date",
+    "datetime",
+    "microsecond",
+    "nanosecond",
+    "strftime",
+    "time_t",
+    "timestamp"
+  ],
+  "license": "MIT",
+  "main": "timestamp.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawanet/timestamp-nano.git"
+  },
+  "scripts": {
+    "build": "make",
+    "test": "make test"
+  }
+}

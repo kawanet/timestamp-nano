@@ -3,23 +3,7 @@
  * @license MIT
  */
 
-/* jshint -W030 */ // Expected an assignment or function call and instead saw an expression.
-
-/**
- * @constructor
- * @param [time] {number} Milliseconds from epoch
- * @param [nano] {number} Offset number for nanosecond precision
- * @param [year] {number} Offset number for year precision
- */
-
-function Timestamp(time, nano, year) {
-  if (!(this instanceof Timestamp)) return new Timestamp(time, nano, year);
-  this.time = +time || 0;
-  this.nano = +nano || 0;
-  this.year = +year || 0;
-}
-
-!function(Timestamp) {
+var Timestamp = (function() {
   if ("undefined" !== typeof module) module.exports = Timestamp;
 
   var SEC_DAY = 24 * 3600; // seconds per day
@@ -61,6 +45,22 @@ function Timestamp(time, nano, year) {
   P.toString = toString;
   P.writeInt64BE = buildWriteInt64(0, 1, 2, 3, 0, 4);
   P.writeInt64LE = buildWriteInt64(3, 2, 1, 0, 4, 0);
+
+  return Timestamp;
+
+  /**
+   * @constructor
+   * @param [time] {number} Milliseconds from epoch
+   * @param [nano] {number} Offset number for nanosecond precision
+   * @param [year] {number} Offset number for year precision
+   */
+
+  function Timestamp(time, nano, year) {
+    if (!(this instanceof Timestamp)) return new Timestamp(time, nano, year);
+    this.time = +time || 0;
+    this.nano = +nano || 0;
+    this.year = +year || 0;
+  }
 
   /**
    * Returns a number representing the year like Date#getUTCFullYear.
@@ -438,4 +438,4 @@ function Timestamp(time, nano, year) {
   function pad(v, len) {
     return (ZERO9 + (v | 0)).substr(-len);
   }
-}(Timestamp);
+})();

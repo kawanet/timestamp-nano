@@ -10,7 +10,7 @@ and the precision of milliseconds.
 - Long range: 64-bit signed long long `time_t` for 292 billion years.
 - High precision: nanosecond.
 - Formatter: "%Y-%m-%dT%H:%M:%S.%NZ"
-- Small: Just 3KB minified.
+- Small: Just 3KB minified
 - No dependencies: no other module required. Portable pure JavaScript.
 
 ### Synopsis
@@ -37,6 +37,33 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 
 - [https://kawanet.github.io/timestamp-nano/index.html](https://kawanet.github.io/timestamp-nano/index.html)
 
+### Format Specifiers
+
+`toString()` method accepts `strftime` specifier characters as below.
+
+`toJSON()` method uses `%Y-%m-%dT%H:%M:%S.%NZ` format.
+
+- `%%` - Literal `%` character.
+- `%a` - Abbreviated weekday name: `Sun` to `Sat`
+- `%b` - Abbreviated month name: `Jan` to `Dec`
+- `%d` - Day: `01` to `31` (padded with zero)
+- `%e` - Day: ` 1` to `31` (padded with space)
+- `%F` - Equivalent to `%Y-%m-%d`
+- `%H` - Hour: `00` to `23`
+- `%L` - Milliseconds: `000` to `999`
+- `%M` - Minute: `00` to `59`
+- `%m` - Month: `01` to `12`
+- `%N` - Nanoseconds: `000000000` to `999999999`
+- `%n` - Newline character
+- `%R` - Equivalent to `%H:%M`
+- `%S` - Second: `00` to `59`
+- `%T` - Equivalent to `%H:%M:%S`
+- `%t` - Tab character
+- `%X` - Equivalent to `%T`
+- `%Y` - Year: `0000` to `9999`, or `+275760`, `-271821`, etc.
+- `%Z` - Constant timezone name: `GMT`
+- `%z` - Constant timezone offset: `+0000`
+
 ### Installation
 
 ```sh
@@ -50,6 +77,11 @@ npm install timestamp-nano --save
 ### Tests
 
 - [https://travis-ci.org/kawanet/timestamp-nano](https://travis-ci.org/kawanet/timestamp-nano)
+
+### See Also
+
+- [https://www.npmjs.com/package/int64-buffer](https://www.npmjs.com/package/int64-buffer) - for 64bit `time_t` long long value
+- [https://www.npmjs.com/package/strftime](https://www.npmjs.com/package/strftime) - for formatting with timezone or locale
 
 ### The MIT License (MIT)
 

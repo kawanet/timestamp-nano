@@ -45,7 +45,7 @@ npm install timestamp-nano --save
 
 ### GitHub
 
-- [https://github.com/kawanet/timestamp-nano](https://github.com/kawanet/timestamp-nano)
+- [https://github.com/kawanet/timestamp-nano/jsdoc/Timestamp.html](https://github.com/kawanet/timestamp-nano/jsdoc/Timestamp.html)
 
 ### Tests
 

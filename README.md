@@ -35,7 +35,7 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 
 ### Documentation
 
-- [https://kawanet.github.io/timestamp-nano/index.html](https://kawanet.github.io/timestamp-nano/index.html)
+- [https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html](https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html)
 
 ### Format Specifiers
 
@@ -72,7 +72,7 @@ npm install timestamp-nano --save
 
 ### GitHub
 
-- [https://github.com/kawanet/timestamp-nano/jsdoc/Timestamp.html](https://github.com/kawanet/timestamp-nano/jsdoc/Timestamp.html)
+- [https://github.com/kawanet/timestamp-nano/](https://github.com/kawanet/timestamp-nano/)
 
 ### Tests
 

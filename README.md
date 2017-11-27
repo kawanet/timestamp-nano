@@ -9,7 +9,7 @@ and the precision of milliseconds.
 
 - Long range: 64-bit signed long long `time_t` for 292 billion years.
 - High precision: nanosecond.
-- Formatter: `strftime` compatible.
+- Formatter: "%Y-%m-%dT%H:%M:%S.%NZ"
 - Small: Just 3KB minified.
 - No dependencies: no other module required. Portable pure JavaScript.
 

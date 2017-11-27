@@ -46,6 +46,29 @@ var Timestamp = (function() {
   P.writeInt64BE = buildWriteInt64(0, 1, 2, 3, 0, 4);
   P.writeInt64LE = buildWriteInt64(3, 2, 1, 0, 4, 0);
 
+  var FMT_JSON = "%Y-%m-%dT%H:%M:%S.%NZ";
+
+  var FMT_MONTH = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  var FMT_DAY = [
+    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+  ];
+
+  var FMT_STRING = {
+    "%": "%",
+    F: "%Y-%m-%d",
+    n: "\n",
+    R: "%H:%M",
+    T: "%H:%M:%S",
+    t: "\t",
+    X: "%T",
+    Z: "GMT",
+    z: "+0000"
+  };
+
   return Timestamp;
 
   /**
@@ -266,7 +289,7 @@ var Timestamp = (function() {
    *
    * @instance
    * @memberOf Timestamp
-   * @param [format] {string} "%Y-%m-%dT%H:%M:%S.%9Z"
+   * @param [format] {string} "%Y-%m-%dT%H:%M:%S.%NZ"
    * @return {string}
    */
 
@@ -274,20 +297,29 @@ var Timestamp = (function() {
     var ts = this;
     var dt = ts.toDate();
     var map = {
-      Y: Y,
-      m: m,
-      d: d,
       H: H,
+      L: L,
       M: M,
+      N: N,
       S: S,
-      9: nanosecond
+      Y: Y,
+      a: a,
+      b: b,
+      d: d,
+      e: e,
+      m: m
     };
 
-    if (format == null) format = "%Y-%m-%dT%H:%M:%S.%9Z";
+    return strftime(format || FMT_JSON);
 
-    return format.replace(/%([YmdHMS9])/g, function(match) {
-      return map[match[1]]();
-    });
+    function strftime(format) {
+      return format.replace(/%./g, function(match) {
+        var m = match[1];
+        var c = FMT_STRING[m];
+        var f = map[m];
+        return c ? strftime(c) : f ? f() : match;
+      });
+    }
 
     function Y() {
       var year = ts.getYear();
@@ -310,6 +342,10 @@ var Timestamp = (function() {
       return pad2(dt.getUTCDate());
     }
 
+    function e() {
+      return padS(dt.getUTCDate());
+    }
+
     function H() {
       return pad2(dt.getUTCHours());
     }
@@ -322,8 +358,20 @@ var Timestamp = (function() {
       return pad2(dt.getUTCSeconds());
     }
 
-    function nanosecond() {
+    function L() {
+      return pad(dt.getUTCMilliseconds(), 3);
+    }
+
+    function N() {
       return pad(ts.getNano(), 9);
+    }
+
+    function a() {
+      return FMT_DAY[dt.getUTCDay()];
+    }
+
+    function b() {
+      return FMT_MONTH[dt.getUTCMonth()];
     }
   }
 
@@ -429,6 +477,10 @@ var Timestamp = (function() {
   function Math_trunc(x) {
     var n = x - x % 1;
     return n === 0 && (x < 0 || (x === 0 && (1 / x !== 1 / 0))) ? -0 : n;
+  }
+
+  function padS(v) {
+    return (v > 9 ? "" : " ") + (v | 0);
   }
 
   function pad2(v) {

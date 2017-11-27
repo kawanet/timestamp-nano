@@ -11,12 +11,14 @@
     "jsdoc": "^3.5.5",
     "jshint": "^2.9.5",
     "mocha": "^4.0.1",
+    "strftime": "^0.10.0",
     "uglify-js": "^3.2.0",
     "zuul": "^3.11.1"
   },
   "homepage": "https://github.com/kawanet/timestamp-nano#readme",
   "jshintConifg": {
     "undef": true,
+    "unused": true,
     "node": true
   },
   "keywords": [

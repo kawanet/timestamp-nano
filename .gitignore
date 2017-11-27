@@ -1,3 +1,4 @@
+*.min.js.gz
 *~
 .DS_Store
 .Thumbs

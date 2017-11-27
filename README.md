@@ -20,10 +20,20 @@ Timestamp.fromDate(new Date()).toJSON(); // => "2017-11-26T13:36:22.213Z"
 
 Timestamp.fromString("2017-11-26T13:36:22.213Z").getTimeT(); // => 1511703382
 
+# 64-bit time_t
 Timestamp.fromTimeT(1511703382).writeInt64BE(); // => [0,0,0,0,90,26,195,86]
 
 Timestamp.fromInt64BE([0,0,0,0,90,26,195,86]).toDate().getUTCHours(); // => 13
+
+# nanoseconds precision
+Timestamp.fromInt64LE([86,195,26,90,0,0,0,0]).addNano(123456789).toJSON(); // => "2017-11-26T13:36:22.123456789Z"
+
+Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 123456789
 ```
+
+### Documentation
+
+- [https://kawanet.github.io/timestamp-nano/index.html](https://kawanet.github.io/timestamp-nano/index.html)
 
 ### Installation
 

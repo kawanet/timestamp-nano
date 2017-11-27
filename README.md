@@ -33,6 +33,10 @@ Timestamp.fromInt64LE([86,195,26,90,0,0,0,0]).addNano(123456789).toJSON(); // =>
 Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 123456789
 ```
 
+### Live Demo
+
+- [https://kawanet.github.io/timestamp-nano/demo/index.html](https://kawanet.github.io/timestamp-nano/demo/index.html)
+
 ### Documentation
 
 - [https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html](https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html)
@@ -63,6 +67,8 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 - `%z` - Constant timezone offset: `+0000`
 
 ### Installation
+
+- [https://www.npmjs.com/package/timestamp-nano](https://www.npmjs.com/package/timestamp-nano)
 
 ```sh
 npm install timestamp-nano --save

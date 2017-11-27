@@ -9,7 +9,7 @@ and the precision of milliseconds.
 
 - Long range: 64-bit signed long long `time_t` for 292 billion years.
 - High precision: nanosecond.
-- Formatter: "%Y-%m-%dT%H:%M:%S.%NZ"
+- Formatter: `%Y-%m-%dT%H:%M:%S.%NZ`, `%a, %b %d %X %Y %z (%Z)`
 - Small: Just 3KB minified
 - No dependencies: no other module required. Portable pure JavaScript.
 
@@ -41,8 +41,6 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 
 `toString()` method accepts `strftime` specifier characters as below.
 
-`toJSON()` method uses `%Y-%m-%dT%H:%M:%S.%NZ` format.
-
 - `%%` - Literal `%` character.
 - `%a` - Abbreviated weekday name: `Sun` to `Sat`
 - `%b` - Abbreviated month name: `Jan` to `Dec`
@@ -69,6 +67,10 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 ```sh
 npm install timestamp-nano --save
 ```
+
+### For Browser
+
+- [https://kawanet.github.io/timestamp-nano/timestamp.min.js](https://kawanet.github.io/timestamp-nano/timestamp.min.js)
 
 ### GitHub
 

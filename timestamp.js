@@ -1,7 +1,4 @@
-/**
- * @author Yusuke Kawasaki
- * @license MIT
- */
+// timestamp.js
 
 var Timestamp = (function() {
   if ("undefined" !== typeof module) module.exports = Timestamp;
@@ -72,10 +69,13 @@ var Timestamp = (function() {
   return Timestamp;
 
   /**
-   * @constructor
+   * @class Timestamp
    * @param [time] {number} Milliseconds from epoch
    * @param [nano] {number} Offset number for nanosecond precision
    * @param [year] {number} Offset number for year precision
+   * @author Yusuke Kawasaki
+   * @license MIT
+   * @see https://github.com/kawanet/timestamp-nano/
    */
 
   function Timestamp(time, nano, year) {

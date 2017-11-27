@@ -2,24 +2,24 @@
 
 SRC=./timestamp.js
 TESTS=*.json ./test/*.js
-DIST=./dist
-JSDEST=./dist/timestamp.min.js
-JSGZIP=./dist/timestamp.min.js.gz
+TARGET=./docs
+JSDEST=./docs/timestamp.min.js
+JSGZIP=./docs/timestamp.min.js.gz
 
-DOCS_DIR=./docs
-DOC_HTML=./docs/Timestamp.html
+DOCS_DIR=./docs/jsdoc
+DOC_HTML=./docs/jsdoc/Timestamp.html
 DOCS_CSS_SRC=./assets/jsdoc.css
-DOCS_CSS_DEST=./docs/styles/jsdoc-default.css
+DOCS_CSS_DEST=./docs/jsdoc/styles/jsdoc-default.css
 
-all: test $(JSGZIP)
+all: test $(TARGET) $(JSGZIP)
 
 clean:
 	rm -fr $(JSDEST)
 
-$(DIST):
-	mkdir -p $(DIST)
+$(TARGET):
+	mkdir -p $(TARGET)
 
-$(JSDEST): $(SRC) $(DIST)
+$(JSDEST): $(SRC)
 	./node_modules/.bin/uglifyjs $(SRC) -c -m -o $(JSDEST)
 
 $(JSGZIP): $(JSDEST)

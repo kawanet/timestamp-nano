@@ -1,5 +1,7 @@
 # Timestamp for 64-bit time_t, nanosecond precision and strftime
 
+[![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano)
+
 JavaScript's native `Date` object has limits at the range for 275 thousand years
 and the precision of milliseconds.
 
@@ -20,12 +22,12 @@ Timestamp.fromDate(new Date()).toJSON(); // => "2017-11-26T13:36:22.213Z"
 
 Timestamp.fromString("2017-11-26T13:36:22.213Z").getTimeT(); // => 1511703382
 
-# 64-bit time_t
+// 64-bit time_t
 Timestamp.fromTimeT(1511703382).writeInt64BE(); // => [0,0,0,0,90,26,195,86]
 
 Timestamp.fromInt64BE([0,0,0,0,90,26,195,86]).toDate().getUTCHours(); // => 13
 
-# nanoseconds precision
+// nanoseconds precision
 Timestamp.fromInt64LE([86,195,26,90,0,0,0,0]).addNano(123456789).toJSON(); // => "2017-11-26T13:36:22.123456789Z"
 
 Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 123456789
@@ -44,6 +46,10 @@ npm install timestamp-nano --save
 ### GitHub
 
 - [https://github.com/kawanet/timestamp-nano](https://github.com/kawanet/timestamp-nano)
+
+### Tests
+
+- [https://travis-ci.org/kawanet/timestamp-nano](https://travis-ci.org/kawanet/timestamp-nano)
 
 ### The MIT License (MIT)
 

@@ -61,10 +61,22 @@ describe(TITLE, function() {
     title += " (" + year + " " + pad2(minute) + ":" + pad2(second) + ")";
 
     it(title, function() {
-      var buf1 = new Array(8);
-      Int64BE(buf1, 0, high, low);
+      var buf0 = new Array(8);
+      Int64BE(buf0, 0, high, low);
 
-      var ts = Timestamp.fromInt64BE(buf1);
+      var ts1 = Timestamp.fromInt64BE(buf0);
+      testIt(ts1);
+      var buf1 = ts1.writeInt64BE();
+      assert.equal(join(buf1), join(buf0), "writeInt64BE");
+
+      // round trip
+      var ts2 = Timestamp.fromInt64LE(buf1.reverse());
+      testIt(ts2);
+      var buf2 = ts2.writeInt64LE().reverse();
+      assert.equal(join(buf2), join(buf0), "writeInt64LE");
+    });
+
+    function testIt(ts) {
       assert.equal(ts.getYear(), year, "getYear");
       assert.equal(ts.getTimeT(), time, "getTimeT");
 
@@ -97,11 +109,7 @@ describe(TITLE, function() {
       if (diffT > 0.01) {
         assert.equal(t, time, "getTimeT"); // throw error
       }
-
-      // disallow any difference
-      var buf2 = ts.writeInt64BE();
-      assert.equal(join(buf2), join(buf1), "writeInt64BE");
-    });
+    }
   }
 
   function mod(y) {

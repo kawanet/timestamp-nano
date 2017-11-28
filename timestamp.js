@@ -323,7 +323,9 @@ var Timestamp = (function() {
 
     function Y() {
       var year = ts.getYear();
-      if (year > 9999) {
+      if (year > 999999) {
+        return "+" + year;
+      } else if (year > 9999) {
         return "+" + pad(year, 6);
       } else if (year >= 0) {
         return pad(year, 4);

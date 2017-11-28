@@ -1,4 +1,4 @@
 *~
-docs/*.min.js
+dist/*.min.js
 docs/jsdoc
 node_modules

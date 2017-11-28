@@ -4,18 +4,15 @@ var Timestamp = (function() {
   if ("undefined" !== typeof module) module.exports = Timestamp;
 
   var SEC_DAY = 24 * 3600; // seconds per day
-  var YEAR_WINDOW = 3200; // years per window
-  var DAY_WINDOW = (365 * 400 + 97) * YEAR_WINDOW / 400; // days per window
-  var SEC_WINDOW = SEC_DAY * DAY_WINDOW; // seconds per window
+  var YEAR_SLOT = 3200; // years per slot
+  var DAY_SLOT = (365 * 400 + 97) * YEAR_SLOT / 400; // days per slot
+  var SEC_SLOT = SEC_DAY * DAY_SLOT; // seconds per slot
 
   var BIT24 = 0x1000000;
   var BIT32 = 0x10000 * 0x10000;
   var DEC6 = 1000 * 1000;
   var DEC9 = 1000 * 1000 * 1000;
   var ZERO9 = "000000000";
-
-  var DATE_MAX = 8640000000000000; // Date.UTC(1970, 0, 1 + 100000000);
-  var DATE_MIN = -8640000000000000; // Date.UTC(1970, 0, 1 - 100000000);
 
   var trunc = Math.trunc || Math_trunc;
   var P = Timestamp.prototype;
@@ -166,17 +163,17 @@ var Timestamp = (function() {
     var array = string.replace(/^\s*[+\-]?\d+/, function(match) {
       year = +match;
 
-      // outside of year window
-      if (year < -YEAR_WINDOW || YEAR_WINDOW < year) {
-        var y = year % YEAR_WINDOW;
+      // outside of slot
+      if (year < -YEAR_SLOT || YEAR_SLOT < year) {
+        var y = year % YEAR_SLOT;
         ts.year = year - y;
         year = y;
       }
 
       // 0000 - 0170 may get confused as 1900 - 2070
       if (0 <= year && year < 170) {
-        ts.year -= YEAR_WINDOW;
-        year += YEAR_WINDOW;
+        ts.year -= YEAR_SLOT;
+        year += YEAR_SLOT;
       }
 
       return "";
@@ -232,20 +229,20 @@ var Timestamp = (function() {
     high *= BIT32;
     low = +low || 0;
 
-    // window count
-    var w = trunc(high / SEC_WINDOW) + trunc(low / SEC_WINDOW);
+    // slot count
+    var slot = trunc(high / SEC_SLOT) + trunc(low / SEC_SLOT);
 
-    // second within window
-    var s = (high % SEC_WINDOW) + (low % SEC_WINDOW);
+    // seconds within slot
+    var second = (high % SEC_SLOT) + (low % SEC_SLOT);
 
-    // window offset
-    var m = trunc(s / SEC_WINDOW);
-    if (m) {
-      w += m;
-      s -= m * SEC_WINDOW;
+    // slot offset
+    var offset = trunc(second / SEC_SLOT);
+    if (offset) {
+      slot += offset;
+      second -= offset * SEC_SLOT;
     }
 
-    return new Timestamp(s * 1000, 0, w * YEAR_WINDOW);
+    return new Timestamp(second * 1000, 0, slot * YEAR_SLOT);
   }
 
   /**
@@ -262,7 +259,7 @@ var Timestamp = (function() {
 
     // ts.toDate() make year property normalized
     var year = ts.year;
-    if (year) time += year * DAY_WINDOW * SEC_DAY / YEAR_WINDOW;
+    if (year) time += year * DAY_SLOT * SEC_DAY / YEAR_SLOT;
 
     // this may loose some bits over than 53 bit precision
     return time;
@@ -403,16 +400,17 @@ var Timestamp = (function() {
       if (!buffer) buffer = [];
       offset |= 0;
 
-      // ts.toDate() make year property normalized
+      // call ts.toDate() first to make year normalized
       var second = Math.floor(ts.toDate() / 1000);
-      var day = ts.year * (DAY_WINDOW * SEC_DAY / YEAR_WINDOW);
+      var day = ts.year * (DAY_SLOT * SEC_DAY / YEAR_SLOT);
       var high = trunc(day / BIT32) + trunc(second / BIT32);
       var low = (day % BIT32) + (second % BIT32);
 
-      var m = Math.floor(low / BIT32);
-      if (m) {
-        high += m;
-        low -= m * BIT32;
+      // slot offset
+      var slot = Math.floor(low / BIT32);
+      if (slot) {
+        high += slot;
+        low -= slot * BIT32;
       }
 
       writeUint32(buffer, offset + posH, high);

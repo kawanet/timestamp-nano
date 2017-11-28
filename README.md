@@ -10,7 +10,7 @@ and the precision of milliseconds.
 - Long range: 64-bit signed long long `time_t` for 292 billion years.
 - High precision: nanosecond.
 - Formatter: `%Y-%m-%dT%H:%M:%S.%NZ`, `%a, %b %d %X %Y %z (%Z)`
-- Small: Just 3KB minified [timestamp.min.js](https://kawanet.github.io/timestamp-nano/timestamp.min.js) available for Web browsers.
+- Small: Just 3KB minified [timestamp.min.js](https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js) available for Web browsers.
 - No dependencies: no other module required. Portable pure JavaScript.
 
 ### Synopsis
@@ -66,12 +66,25 @@ Timestamp.fromString("2017-11-26T13:36:22.123456789Z").getNano(); // => 12345678
 - `%Z` - Constant timezone name: `GMT`
 - `%z` - Constant timezone offset: `+0000`
 
-### Installation
+### Node.js
 
 - [https://www.npmjs.com/package/timestamp-nano](https://www.npmjs.com/package/timestamp-nano)
 
 ```sh
 npm install timestamp-nano --save
+```
+
+### Browsers
+
+- [https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js](https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js)
+
+```html
+<script src="https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js"></script>
+<script>
+  var dt = new Date();
+  var ts = Timestamp.fromDate(dt);
+  alert(ts.toString());
+</script>
 ```
 
 ### GitHub

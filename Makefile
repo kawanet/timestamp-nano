@@ -2,9 +2,9 @@
 
 SRC=./timestamp.js
 TESTS=*.json ./test/*.js
-TARGET=./docs
-JSDEST=./docs/timestamp.min.js
-JSGZIP=./docs/timestamp.min.js.gz
+TARGET=./dist
+JSDEST=./dist/timestamp.min.js
+JSGZIP=./dist/timestamp.min.js.gz
 
 DOCS_DIR=./docs/jsdoc
 DOC_HTML=./docs/jsdoc/Timestamp.html

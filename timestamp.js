@@ -112,7 +112,7 @@ var Timestamp = (function() {
     var nano = ts.nano;
 
     // normalize nano
-    if (nano < 0 || DEC6 < nano) {
+    if (nano < 0 || DEC6 <= nano) {
       var n = Math.floor(nano / DEC6);
       ts.nano = nano - n * DEC6;
       ts.time = time = time + n;

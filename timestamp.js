@@ -69,7 +69,7 @@ var Timestamp = (function() {
    * @class Timestamp
    * @param [time] {number} Milliseconds from epoch
    * @param [nano] {number} Offset number for nanosecond precision
-   * @param [year] {number} Offset number for year precision
+   * @param [year] {number} Offset number for year which must be a multiple of 400 to avoid leap year calculation
    * @author Yusuke Kawasaki
    * @license MIT
    * @see https://github.com/kawanet/timestamp-nano/
@@ -97,6 +97,10 @@ var Timestamp = (function() {
 
   /**
    * Returns a Date instance.
+   *
+   * Do not call Date#getUTCFullYear of the instance.
+   * Any properties other than year are correct.
+   * Instead, call Timestamp#getYear to retrieve year then.
    *
    * @instance
    * @memberOf Timestamp
@@ -199,7 +203,7 @@ var Timestamp = (function() {
    *
    * @static
    * @memberOf Timestamp
-   * @param date {Date|number}
+   * @param date {Date|number} Milliseconds since epoch
    * @return {Timestamp}
    */
 
@@ -247,6 +251,9 @@ var Timestamp = (function() {
 
   /**
    * Returns a number representing the seconds since epoch aka time_t.
+   *
+   * JavaScript has the Double precision per default.
+   * Call Timestamp#writeInt64BE instead, if you need 64bit long long precision.
    *
    * @instance
    * @memberOf Timestamp

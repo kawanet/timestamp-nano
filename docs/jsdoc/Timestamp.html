@@ -175,7 +175,7 @@
 
             
 
-            <td class="description last">Offset number for year precision</td>
+            <td class="description last">Offset number for year which must be a multiple of 400 to avoid leap year calculation</td>
         </tr>
 
     
@@ -350,7 +350,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Milliseconds since epoch</td>
         </tr>
 
     
@@ -1414,6 +1414,9 @@
 
 <div class="description">
     Returns a number representing the seconds since epoch aka time_t.
+
+JavaScript has the Double precision per default.
+Call Timestamp#writeInt64BE instead, if you need 64bit long long precision.
 </div>
 
 
@@ -1622,6 +1625,10 @@
 
 <div class="description">
     Returns a Date instance.
+
+Do not call Date#getUTCFullYear of the instance.
+Any properties other than year are correct.
+Instead, call Timestamp#getYear to retrieve year then.
 </div>
 
 

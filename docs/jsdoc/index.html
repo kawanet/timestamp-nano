@@ -47,10 +47,10 @@
 <p>JavaScript's native <code>Date</code> object has limits at the range for 275 thousand years
 and the precision of milliseconds.</p>
 <h3>Features</h3><ul>
-<li>Long range: 64-bit signed long long <code>time_t</code> for 292 billion years.</li>
-<li>High precision: nanosecond.</li>
-<li>Formatter: <code>%Y-%m-%dT%H:%M:%S.%NZ</code>, <code>%a, %b %d %X %Y %z (%Z)</code></li>
-<li>Small: Just 3KB minified</li>
+<li>Long long range: 64-bit signed <code>time_t</code> for 292 billion years.</li>
+<li>High precision: nanosecond = 0.000000001 second.</li>
+<li>Formatter: <code>&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;</code>, <code>&quot;%a, %b %d %X %Y %z (%Z)&quot;</code></li>
+<li>Small: Just 3KB minified <a href="https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js">timestamp.min.js</a> available for Web browsers.</li>
 <li>No dependencies: no other module required. Portable pure JavaScript.</li>
 </ul>
 <h3>Synopsis</h3><pre class="prettyprint source lang-js"><code>var Timestamp = require(&quot;timestamp-nano&quot;);
@@ -67,7 +67,10 @@ Timestamp.fromInt64BE([0,0,0,0,90,26,195,86]).toDate().getUTCHours(); // => 13
 // nanoseconds precision
 Timestamp.fromInt64LE([86,195,26,90,0,0,0,0]).addNano(123456789).toJSON(); // => &quot;2017-11-26T13:36:22.123456789Z&quot;
 
-Timestamp.fromString(&quot;2017-11-26T13:36:22.123456789Z&quot;).getNano(); // => 123456789</code></pre><h3>Documentation</h3><ul>
+Timestamp.fromString(&quot;2017-11-26T13:36:22.123456789Z&quot;).getNano(); // => 123456789</code></pre><h3>Live Demo</h3><ul>
+<li><a href="https://kawanet.github.io/timestamp-nano/demo/index.html">https://kawanet.github.io/timestamp-nano/demo/index.html</a></li>
+</ul>
+<h3>Documentation</h3><ul>
 <li><a href="https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html">https://kawanet.github.io/timestamp-nano/jsdoc/Timestamp.html</a></li>
 </ul>
 <h3>Format Specifiers</h3><p><code>toString()</code> method accepts <code>strftime</code> specifier characters as below.</p>
@@ -93,11 +96,19 @@ Timestamp.fromString(&quot;2017-11-26T13:36:22.123456789Z&quot;).getNano(); // =
 <li><code>%Z</code> - Constant timezone name: <code>GMT</code></li>
 <li><code>%z</code> - Constant timezone offset: <code>+0000</code></li>
 </ul>
-<h3>Installation</h3><pre class="prettyprint source lang-sh"><code>npm install timestamp-nano --save</code></pre><h3>For Browser</h3><ul>
-<li><a href="https://kawanet.github.io/timestamp-nano/timestamp.min.js">https://kawanet.github.io/timestamp-nano/timestamp.min.js</a></li>
+<h3>Node.js</h3><ul>
+<li><a href="https://www.npmjs.com/package/timestamp-nano">https://www.npmjs.com/package/timestamp-nano</a></li>
 </ul>
-<h3>GitHub</h3><ul>
-<li><a href="https://github.com/kawanet/timestamp-nano/">https://github.com/kawanet/timestamp-nano/</a></li>
+<pre class="prettyprint source lang-sh"><code>npm install timestamp-nano --save</code></pre><h3>Browsers</h3><ul>
+<li><a href="https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js">https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js</a></li>
+</ul>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js&quot;>&lt;/script>
+&lt;script>
+  var dt = new Date();
+  var ts = Timestamp.fromDate(dt);
+  alert(ts.toString());
+&lt;/script></code></pre><h3>GitHub</h3><ul>
+<li><a href="https://github.com/kawanet/timestamp-nano">https://github.com/kawanet/timestamp-nano</a></li>
 </ul>
 <h3>Tests</h3><ul>
 <li><a href="https://travis-ci.org/kawanet/timestamp-nano">https://travis-ci.org/kawanet/timestamp-nano</a></li>

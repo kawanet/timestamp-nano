@@ -7,9 +7,9 @@ and the precision of milliseconds.
 
 ### Features
 
-- Long range: 64-bit signed long long `time_t` for 292 billion years.
-- High precision: nanosecond.
-- Formatter: `%Y-%m-%dT%H:%M:%S.%NZ`, `%a, %b %d %X %Y %z (%Z)`
+- Long long range: 64-bit signed `time_t` for 292 billion years.
+- High precision: nanosecond = 0.000000001 second.
+- Formatter: `"%Y-%m-%dT%H:%M:%S.%NZ"`, `"%a, %b %d %X %Y %z (%Z)"`
 - Small: Just 3KB minified [timestamp.min.js](https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js) available for Web browsers.
 - No dependencies: no other module required. Portable pure JavaScript.
 

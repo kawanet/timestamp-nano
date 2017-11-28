@@ -126,11 +126,7 @@ describe(TITLE, function() {
       assert.equal(ts2.toJSON(), ts.toJSON(), "toJSON");
       assert.equal(ts2.getYear(), ts.getYear(), "getYear");
       assert.equal(ts2.getTimeT(), ts.getTimeT(), "getTimeT");
+      assert.equal(ts2.getNano(), ts.getNano(), "getNano");
     });
-  }
-
-  function mod(y) {
-    // return y;
-    return ((y % 2000) + 2000) % 2000;
   }
 });

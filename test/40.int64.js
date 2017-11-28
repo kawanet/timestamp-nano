@@ -67,7 +67,6 @@ describe(TITLE, function() {
       var ts = Timestamp.fromInt64BE(buf1);
       assert.equal(ts.getYear(), year, "getYear");
       assert.equal(ts.getTimeT(), time, "getTimeT");
-      assert.equal(ts.getNano(), 0);
 
       var dt = ts.toDate();
 
@@ -83,22 +82,25 @@ describe(TITLE, function() {
         assert.equal(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
         assert.equal(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
         assert.equal(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
+        assert.equal(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
       }
 
-      assert.equal(mod(dt.getUTCFullYear()), mod(year));
-      assert.equal(dt.getMinutes(), minute);
-      assert.equal(dt.getSeconds(), second);
+      assert.equal(mod(dt.getUTCFullYear()), mod(year), "getUTCFullYear");
+      assert.equal(dt.getUTCMinutes(), minute, "getUTCMinutes");
+      assert.equal(dt.getUTCSeconds(), second, "getUTCSeconds");
+      assert.equal(dt.getUTCMilliseconds(), 0, "getUTCMilliseconds");
+      assert.equal(ts.getNano(), 0, "getNano");
 
       // allow 1% time_t difference in due to Double precision
       var t = ts.getTimeT();
       var diffT = Math.abs((time - t) / time);
       if (diffT > 0.01) {
-        assert.equal(t, time); // throw error
+        assert.equal(t, time, "getTimeT"); // throw error
       }
 
       // disallow any difference
       var buf2 = ts.writeInt64BE();
-      assert.equal(join(buf2), join(buf1));
+      assert.equal(join(buf2), join(buf1), "writeInt64BE");
     });
   }
 

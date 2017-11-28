@@ -7,7 +7,6 @@ var TITLE = __filename.split("/").pop();
 describe(TITLE, function() {
   var Timestamp = require("../timestamp");
   var DAY = 24 * 3600; // seconds per 1 day
-  var YEAR400 = 365 * 400 + 97; // days per 400 years
 
   var SECONDS = [
     0,
@@ -37,7 +36,7 @@ describe(TITLE, function() {
       runTest(-sec, 0);
     });
 
-    for (var r = 28; r <= 32; r++) {
+    for (var r = 28; r <= 31; r++) {
       var c = -Math.pow(2, r);
       runTest(c + 1, 0);
       runTest(c, 0);
@@ -70,6 +69,7 @@ describe(TITLE, function() {
       assert.equal(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
       assert.equal(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
       assert.equal(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
+      assert.equal(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
     });
   }
 

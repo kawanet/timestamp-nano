@@ -78,7 +78,6 @@ describe(TITLE, function() {
 
     function testIt(ts) {
       assert.equal(ts.getYear(), year, "getYear");
-      assert.equal(ts.getTimeT(), time, "getTimeT");
 
       var dt = ts.toDate();
 
@@ -102,18 +101,11 @@ describe(TITLE, function() {
       assert.equal(dt.getUTCSeconds(), second, "getUTCSeconds");
       assert.equal(dt.getUTCMilliseconds(), 0, "getUTCMilliseconds");
       assert.equal(ts.getNano(), 0, "getNano");
-
-      // allow 1% time_t difference in due to Double precision
-      var t = ts.getTimeT();
-      var diffT = Math.abs((time - t) / time);
-      if (diffT > 0.01) {
-        assert.equal(t, time, "getTimeT"); // throw error
-      }
     }
   }
 
   function mod(y) {
-    return ((y % 2000) + 2000) % 2000;
+    return ((y % 100) + 100) % 100;
   }
 
   function hex(v) {

@@ -4,9 +4,9 @@ var Timestamp = (function() {
   if ("undefined" !== typeof module) module.exports = Timestamp;
 
   var SEC_DAY = 24 * 3600; // seconds per day
-  var YEAR_WINDOW = 2000; // years per window
+  var YEAR_WINDOW = 3200; // years per window
   var DAY_WINDOW = (365 * 400 + 97) * YEAR_WINDOW / 400; // days per window
-  var MSEC_WINDOW = 1000 * SEC_DAY * DAY_WINDOW; // milliseconds per window
+  var SEC_WINDOW = SEC_DAY * DAY_WINDOW; // seconds per window
 
   var BIT24 = 0x1000000;
   var BIT32 = 0x10000 * 0x10000;
@@ -116,20 +116,6 @@ var Timestamp = (function() {
       var n = Math.floor(nano / DEC6);
       ts.nano = nano - n * DEC6;
       ts.time = time = time + n;
-    }
-
-    // normalize year
-    var y = ts.year % YEAR_WINDOW;
-    if (y) {
-      ts.year -= y;
-      ts.time = time = time + (y * MSEC_WINDOW / YEAR_WINDOW);
-    }
-
-    // normalize time
-    if (time < DATE_MIN || DATE_MAX < time) {
-      var w = trunc(time / MSEC_WINDOW);
-      ts.year += w * YEAR_WINDOW;
-      ts.time = time = time - (w * MSEC_WINDOW);
     }
 
     var dt = new Date(0);
@@ -245,11 +231,21 @@ var Timestamp = (function() {
     high |= 0;
     high *= BIT32;
     low = +low || 0;
-    low += high % SEC_DAY;
-    var day = trunc(high / SEC_DAY) + trunc(low / SEC_DAY);
-    var year = trunc(day / DAY_WINDOW) * YEAR_WINDOW;
-    var time = ((day % DAY_WINDOW) * SEC_DAY + (low % SEC_DAY)) * 1000;
-    return new Timestamp(time, 0, year);
+
+    // window count
+    var w = trunc(high / SEC_WINDOW) + trunc(low / SEC_WINDOW);
+
+    // second within window
+    var s = (high % SEC_WINDOW) + (low % SEC_WINDOW);
+
+    // window offset
+    var m = trunc(s / SEC_WINDOW);
+    if (m) {
+      w += m;
+      s -= m * SEC_WINDOW;
+    }
+
+    return new Timestamp(s * 1000, 0, w * YEAR_WINDOW);
   }
 
   /**
@@ -408,19 +404,15 @@ var Timestamp = (function() {
       offset |= 0;
 
       // ts.toDate() make year property normalized
-      var second = trunc(ts.toDate() / 1000);
+      var second = Math.floor(ts.toDate() / 1000);
       var day = ts.year * (DAY_WINDOW * SEC_DAY / YEAR_WINDOW);
       var high = trunc(day / BIT32) + trunc(second / BIT32);
       var low = (day % BIT32) + (second % BIT32);
 
-      while (low < 0) {
-        low += BIT32;
-        high--;
-      }
-
-      while (low >= BIT32) {
-        low -= BIT32;
-        high++;
+      var m = Math.floor(low / BIT32);
+      if (m) {
+        high += m;
+        low -= m * BIT32;
       }
 
       writeUint32(buffer, offset + posH, high);

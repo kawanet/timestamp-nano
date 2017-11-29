@@ -7,6 +7,7 @@ var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
   var Timestamp = require("../timestamp");
+  strftime = strftime.localizeByIdentifier("en_US");
 
   describe("common strftime formats", function() {
     var FORMATS = {
@@ -23,23 +24,46 @@ describe(TITLE, function() {
     };
 
     Object.keys(FORMATS).forEach(function(format) {
-      var dt = new Date(Date.UTC(2018, 0, 2, 3, 4, 5, 6));
-      var ts = Timestamp.fromDate(dt);
+      var utc = Date.UTC(2018, 0, 2, 3, 4, 5, 6);
+      var ts = Timestamp.fromDate(utc);
 
       it(format, function() {
-        assert.equal(ts.toString(format), FORMATS[format]);
+        assert.equal(ts.toString(format), FORMATS[format], format);
       });
     });
   });
 
-  describe("strftime compatibility", function() {
-    var timeDiff = Math.floor(Date.UTC(2000, 0, 1) - new Date(2000, 0, 1));
-    strftime = strftime.localizeByIdentifier("en_US");
+  describe("month day name", function() {
+    // month name
+    it("%b", function() {
+      for (var i = 1; i <= 12; i++) {
+        var dt = new Date(2020, i - 1, i);
+        var utc = Date.UTC(2020, i - 1, i);
+        var ts = Timestamp.fromDate(utc);
+        var fmt = "%b";
+        var str = strftime(fmt, dt);
+        assert.equal(ts.toString(fmt), str, fmt);
+      }
+    });
 
+    // day name
+    it("%a", function() {
+      for (var i = 1; i <= 7; i++) {
+        var dt = new Date(2020, 0, i);
+        var utc = Date.UTC(2020, 0, i);
+        var ts = Timestamp.fromDate(utc);
+        var fmt = "%a";
+        var str = strftime(fmt, dt);
+        assert.equal(ts.toString(fmt), str, fmt);
+      }
+    });
+  });
+
+  describe("strftime compatibility", function() {
     var YEARS = [2017, 2018, 2019, 2020];
-    var MONTHS = [1, 2, 3, 12];
-    var DAYS = [1, 2, 3, 4, 25, 26, 27, 28];
-    var HOURS = [0, 1, 11, 12, 13, 23];
+    var MONTHS = [1, 2, 12];
+    var DAYS = [1, 2, 28];
+    var HOURS = [0, 11, 12, 13, 23];
     var MINUTES = [0, 1, 59];
     var SECONDS = [0, 1, 59];
 
@@ -102,9 +126,10 @@ describe(TITLE, function() {
               MINUTES.forEach(function(minute) {
                 SECONDS.forEach(function(second) {
                   var dt = new Date(year, month - 1, day, hour, minute, second);
-                  var ts = new Timestamp(+dt + timeDiff);
-                  PATTERNS.forEach(function(p) {
-                    assert.equal(ts.toString(p), strftime(p, dt), p);
+                  var utc = Date.UTC(year, month - 1, day, hour, minute, second);
+                  var ts = new Timestamp(utc);
+                  PATTERNS.forEach(function(fmt) {
+                    assert.equal(ts.toString(fmt), strftime(fmt, dt), fmt);
                   });
                 });
               });

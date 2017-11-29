@@ -1,4 +1,4 @@
 *~
 dist/*.min.js
-docs/jsdoc
+docs/typedoc
 node_modules

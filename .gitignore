@@ -4,5 +4,8 @@
 .Thumbs
 ._*
 .idea
+docs/typedoc/classes/[^t]*
+docs/typedoc/interfaces
+docs/typedoc/modules
 node_modules
 npm-debug.log*

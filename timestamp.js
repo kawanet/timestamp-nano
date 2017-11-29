@@ -1,4 +1,10 @@
-// timestamp.js
+/**
+ * Timestamp for 64-bit time_t, nanosecond precision and strftime
+ *
+ * @author Yusuke Kawasaki
+ * @license MIT
+ * @see https://github.com/kawanet/timestamp-nano
+ */
 
 var Timestamp = (function() {
   if ("undefined" !== typeof module) module.exports = Timestamp;
@@ -65,16 +71,6 @@ var Timestamp = (function() {
 
   return Timestamp;
 
-  /**
-   * @class Timestamp
-   * @param [time] {number} Milliseconds from epoch
-   * @param [nano] {number} Offset number for nanosecond precision
-   * @param [year] {number} Offset number for year which must be a multiple of 400 to avoid leap year calculation
-   * @author Yusuke Kawasaki
-   * @license MIT
-   * @see https://github.com/kawanet/timestamp-nano/
-   */
-
   function Timestamp(time, nano, year) {
     if (!(this instanceof Timestamp)) return new Timestamp(time, nano, year);
     this.time = +time || 0;
@@ -82,30 +78,10 @@ var Timestamp = (function() {
     this.year = +year || 0;
   }
 
-  /**
-   * Returns a number representing the year like Date#getUTCFullYear.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @return {number}
-   */
-
   function getYear() {
     var year = this.toDate().getUTCFullYear();
     return year + this.year;
   }
-
-  /**
-   * Returns a Date instance.
-   *
-   * Do not call Date#getUTCFullYear of the instance.
-   * Any properties other than year are correct.
-   * Instead, call Timestamp#getYear to retrieve year then.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @return {Date}
-   */
 
   function toDate() {
     var ts = this;
@@ -124,41 +100,14 @@ var Timestamp = (function() {
     return dt;
   }
 
-  /**
-   * Adds offset in nanosecond precision.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @param nano {number} offset number for nanosecond precision in addition
-   * @return {Timestamp}
-   */
-
   function addNano(nano) {
     this.nano += +nano || 0;
     return this;
   }
 
-  /**
-   * Returns a number, between 0 and 999999999, representing the nanoseconds.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @return {number}
-   */
-
   function getNano() {
     return ((this.time % 1000) * DEC6 + this.nano + DEC9) % DEC9;
   }
-
-  /**
-   * Creates a Timestamp instance from string like: "2017-11-26T11:27:58.737Z"
-   *
-   * @static
-   * @memberOf Timestamp
-   * @see https://www.w3.org/TR/NOTE-datetime
-   * @param string {string} W3C Date and Time Formats
-   * @return {Timestamp}
-   */
 
   function fromString(string) {
     var year, tz;
@@ -198,35 +147,13 @@ var Timestamp = (function() {
     return ts;
   }
 
-  /**
-   * Creates a Timestamp instance from Date instance or milliseconds since epoch.
-   *
-   * @static
-   * @memberOf Timestamp
-   * @param date {Date|number} Milliseconds since epoch
-   * @return {Timestamp}
-   */
-
   function fromDate(date) {
     return new Timestamp(+date);
   }
 
-  /**
-   * Creates a Timestamp instance from seconds since epoch aka time_t.
-   *
-   * @static
-   * @memberOf Timestamp
-   * @param time {number} Seconds since epoch
-   * @return {Timestamp}
-   */
-
   function fromTimeT(time) {
     return fromTime(time, 0);
   }
-
-  /**
-   * @private
-   */
 
   function fromTime(low, high) {
     high |= 0;
@@ -249,17 +176,6 @@ var Timestamp = (function() {
     return new Timestamp(second * 1000, 0, slot * YEAR_SLOT);
   }
 
-  /**
-   * Returns a number representing the seconds since epoch aka time_t.
-   *
-   * JavaScript has the Double precision per default.
-   * Call Timestamp#writeInt64BE instead, if you need 64bit long long precision.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @return {number}
-   */
-
   function getTimeT() {
     var ts = this;
     var time = Math.floor(ts.toDate() / 1000);
@@ -272,26 +188,9 @@ var Timestamp = (function() {
     return time;
   }
 
-  /**
-   * Returns a JSON string representation like: "2017-11-26T11:27:58.737Z"
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @return {string}
-   */
-
   function toJSON() {
     return this.toString().replace(/0{1,6}Z$/, "Z");
   }
-
-  /**
-   * Returns a string formatted like strftime.
-   *
-   * @instance
-   * @memberOf Timestamp
-   * @param [format] {string} "%Y-%m-%dT%H:%M:%S.%NZ"
-   * @return {string}
-   */
 
   function toString(format) {
     var ts = this;
@@ -380,28 +279,6 @@ var Timestamp = (function() {
   function buildWriteInt64(pos0, pos1, pos2, pos3, posH, posL) {
     return writeInt64;
 
-    /**
-     * Writes big endian 64bit time_t of 8 bytes sequence.
-     *
-     * @method writeInt64BE
-     * @instance
-     * @memberOf Timestamp
-     * @param [buffer] {ArrayLike} Buffer, Array, Uint8Array, etc.
-     * @param [offset] {number}
-     * @return {ArrayLike}
-     */
-
-    /**
-     * Writes little endian 64bit time_t of 8 bytes sequence.
-     *
-     * @method writeInt64LE
-     * @instance
-     * @memberOf Timestamp
-     * @param [buffer] {ArrayLike} Buffer, Array, Uint8Array, etc.
-     * @param [offset] {number}
-     * @return {ArrayLike}
-     */
-
     function writeInt64(buffer, offset) {
       var ts = this;
       if (!buffer) buffer = [];
@@ -435,28 +312,6 @@ var Timestamp = (function() {
 
   function buildFromInt64(pos0, pos1, pos2, pos3, posH, posL) {
     return fromInt64;
-
-    /**
-     * Creates a Timestamp instance from big endian 64bit time_t of 8 bytes sequence.
-     *
-     * @method fromInt64BE
-     * @static
-     * @memberOf Timestamp
-     * @param buffer {ArrayLike} Buffer, Array, Uint8Array, etc.
-     * @param [offset] {number}
-     * @return {Timestamp}
-     */
-
-    /**
-     * Creates a Timestamp instance from little endian 64bit time_t of 8 bytes sequence.
-     *
-     * @method fromInt64LE
-     * @static
-     * @memberOf Timestamp
-     * @param buffer {ArrayLike} Buffer, Array, Uint8Array, etc.
-     * @param [offset] {number}
-     * @return {Timestamp}
-     */
 
     function fromInt64(buffer, offset) {
       offset |= 0;

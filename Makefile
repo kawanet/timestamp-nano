@@ -6,15 +6,16 @@ TARGET=./dist
 JSDEST=./dist/timestamp.min.js
 JSGZIP=./dist/timestamp.min.js.gz
 
-DOCS_DIR=./docs/jsdoc
-DOC_HTML=./docs/jsdoc/Timestamp.html
+DOCS_DIR=./docs/typedoc
+DOC_SRC=./timestamp.d.ts
+DOC_HTML=./docs/typedoc/classes/timestamp.html
 DOCS_CSS_SRC=./assets/jsdoc.css
 DOCS_CSS_DEST=./docs/jsdoc/styles/jsdoc-default.css
 
-all: test $(TARGET) $(JSGZIP)
+all: test $(TARGET) $(JSGZIP) typedoc
 
 clean:
-	rm -fr $(JSDEST)
+	rm -fr $(JSDEST) $(JSGZIP) $(DOCS_DIR)
 
 $(TARGET):
 	mkdir -p $(TARGET)
@@ -44,14 +45,10 @@ mocha:
 jshint:
 	./node_modules/.bin/jshint .
 
-jsdoc: $(DOC_HTML)
+typedoc: $(DOC_HTML)
 
-$(DOC_HTML): README.md $(SRC) $(DOCS_CSS_SRC)
-	mkdir -p $(DOCS_DIR)
-	./node_modules/.bin/jsdoc -d $(DOCS_DIR) -R README.md $(SRC)
-	cat $(DOCS_CSS_SRC) >> $(DOCS_CSS_DEST)
-	rm -f $(DOCS_DIR)/*.js.html
-	for f in $(DOCS_DIR)/*.html; do sed 's#</a> on .* 201.* GMT.*##' < $$f > $$f~ && mv $$f~ $$f; done
-	for f in $(DOCS_DIR)/*.html; do sed 's#<a href=".*.js.html">.*line.*line.*</a>##' < $$f > $$f~ && mv $$f~ $$f; done
+$(DOC_HTML): $(DOC_SRC)
+	# TODO: exclude node_modules
+	./node_modules/.bin/typedoc --out $(DOCS_DIR) --includeDeclarations --readme /dev/null --mode file timestamp.d.ts
 
 .PHONY: all clean test jshint mocha

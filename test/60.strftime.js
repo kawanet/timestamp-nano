@@ -116,10 +116,11 @@ describe(TITLE, function() {
       // "%y", // The year as a decimal number without a century (range 00 to 99).
       // "%Z", // The timezone name or abbreviation.
       // "%z", // The +hhmm or -hhmm numeric timezone (that is, the hour and minute offset from UTC).
-      "Z"];
+      null];
 
     YEARS.forEach(function(year) {
       it("" + year, function() {
+        var cnt = 0;
         MONTHS.forEach(function(month) {
           DAYS.forEach(function(day) {
             HOURS.forEach(function(hour) {
@@ -129,14 +130,27 @@ describe(TITLE, function() {
                   var utc = Date.UTC(year, month - 1, day, hour, minute, second);
                   var ts = new Timestamp(utc);
                   PATTERNS.forEach(function(fmt) {
+                    if (!fmt) return;
                     assert.equal(ts.toString(fmt), strftime(fmt, dt), fmt);
+                    cnt++;
                   });
                 });
               });
             });
           });
         });
+        assert.ok(cnt);
       });
+    });
+  });
+
+  describe("invalid specifier", function() {
+    var ts = new Timestamp();
+    it("% ", function() {
+      assert.equal(ts.toString("% "), "% ");
+    });
+    it("%\\n", function() {
+      assert.equal(ts.toString("%\n"), "%\n");
     });
   });
 });

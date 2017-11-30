@@ -101,6 +101,12 @@ describe(TITLE, function() {
       assert.equal(dt.getUTCSeconds(), second, "getUTCSeconds");
       assert.equal(dt.getUTCMilliseconds(), 0, "getUTCMilliseconds");
       assert.equal(ts.getNano(), 0, "getNano");
+
+      // allow minor error only caused by double precision
+      var t = ts.getTimeT();
+      if (Math.abs((t - time) / t) > 0.000001) {
+        assert.equal(t, time, "getTimeT");
+      }
     }
   }
 

@@ -5,10 +5,13 @@ var assert = require("assert");
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
+  var Timestamp, ts;
+
   it("require", function() {
+    Timestamp = require("../timestamp");
+  });
 
-    var Timestamp = require("../timestamp");
-
+  it("constructor", function() {
     // constructor
     assert.equal(typeof Timestamp, "function");
 
@@ -19,9 +22,16 @@ describe(TITLE, function() {
     assert.equal(typeof Timestamp.fromString, "function");
     assert.equal(typeof Timestamp.fromTimeT, "function");
 
-    var ts = new Timestamp();
+    // call constructor with new
+    ts = new Timestamp();
     assert.ok(ts instanceof Timestamp);
 
+    // call constructor without new
+    ts = Timestamp();
+    assert.ok(ts instanceof Timestamp);
+  });
+
+  it("methods", function() {
     // instance methods
     assert.equal(typeof ts.addNano, "function");
     assert.equal(typeof ts.getNano, "function");
@@ -34,7 +44,7 @@ describe(TITLE, function() {
     assert.equal(typeof ts.writeInt64LE, "function");
 
     // return value type
-    assert.equal(typeof ts.addNano(), "object");
+    assert.equal(typeof ts.addNano(0), "object");
     assert.equal(typeof ts.getNano(), "number");
     assert.equal(typeof ts.getTimeT(), "number");
     assert.equal(typeof ts.getYear(), "number");
@@ -44,7 +54,7 @@ describe(TITLE, function() {
     assert.equal(typeof ts.writeInt64BE(), "object");
     assert.equal(typeof ts.writeInt64LE(), "object");
 
-    assert.ok(ts.addNano() instanceof Timestamp);
+    assert.ok(ts.addNano(0) instanceof Timestamp);
     assert.ok(ts.toDate() instanceof Date);
   });
 });

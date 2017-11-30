@@ -7,7 +7,6 @@ var TtestItLE = __filename.split("/").pop();
 describe(TtestItLE, function() {
   var Timestamp = require("../timestamp");
   var DEC3 = 1000;
-  var DEC6 = 1000000;
   var DEC8 = 100000000;
   var DEC9 = 1000000000;
   var DATE_MAX = DEC8 * 24 * 3600 * DEC3;

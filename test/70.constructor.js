@@ -54,6 +54,15 @@ describe(TtestItLE, function() {
     ["-271821-04-20T00:00:00.001Z", -DATE_MAX + 1, 0, 0],
     ["-271821-04-20T00:00:00.222222222Z", -DATE_MAX + 222, 222222, 0],
 
+    // Create Timestamp instance with time outside of Date range.
+    // Both DATE_MAX+1 and -DATE_MAX-1 are incorrect time for Date.
+    ["+275760-09-13T00:00:00.001000001Z", DATE_MAX + 1, 1, 0],
+    ["+275760-09-13T00:00:00.001Z", DATE_MAX + 1, 0, 0],
+    ["+275760-09-13T00:00:00.000000001Z", DATE_MAX, 1, 0],
+    ["-271821-04-19T23:59:59.999999999Z", -DATE_MAX, -1, 0],
+    ["-271821-04-19T23:59:59.999Z", -DATE_MAX - 1, 0, 0],
+    ["-271821-04-19T23:59:59.998999999Z", -DATE_MAX - 1, -1, 0],
+
     ["0000-01-01T00:00:00.000Z", AD0000],
     ["-000001-12-31T23:59:59.999Z", AD0000 - 1],
 

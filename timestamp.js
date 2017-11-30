@@ -160,32 +160,24 @@ var Timestamp = (function() {
 
   function getNano() {
     var ts = normalize(this);
-    return ((ts.time % 1000) * DEC6 + ts.nano + DEC9) % DEC9;
+    return ((ts.time % 1000) * DEC6 + (+ts.nano) + DEC9) % DEC9;
   }
 
   function fromString(string) {
-    var year, tz;
+    var tz;
     var ts = new Timestamp();
 
     var array = string.replace(/^\s*[+\-]?\d+/, function(match) {
-      year = +match;
-
-      // outside of slot
-      if (year < -YEAR_SLOT || YEAR_SLOT < year) {
-        var y = year % YEAR_SLOT;
-        ts.year = year - y;
-        year = y;
-      }
-
-      // 0000 - 0170 may get confused as 1900 - 2070
-      if (0 <= year && year < 170) {
-        ts.year -= YEAR_SLOT;
-        year += YEAR_SLOT;
-      }
-
-      return "";
-    }).replace(/(?:Z|([\+\-]\d+):?(\d{2}))$/, function(match, hour, min) {
+      var year = +match;
+      // Use only years around 1970 to avoid Date's terrible behavior:
+      // 15.9.4.3 Date.UTC
+      // If y is not NaN and 0 <= y <= 99, then let yr be 1900+y
+      var y = 1970 + ((year - 1970) % 400);
+      ts.year = year - y;
+      return y;
+    }).replace(/(?:Z|([+\-]\d{2}):?(\d{2}))$/, function(match, hour, min) {
       // time zone
+      if (hour < 0) min *= -1;
       tz = ((+hour) * 60 + (+min)) * 60000;
       return "";
     }).replace(/\.\d+$/, function(match) {
@@ -194,10 +186,10 @@ var Timestamp = (function() {
       return "";
     }).split(/\D+/);
 
-    array[0] = year;
     array[1]--; // month starts from 0
-    ts.time = Date.UTC.apply(Date, array) + (tz || 0);
 
+    ts.time = Date.UTC.apply(Date, array) - (tz || 0);
+    normalize(ts);
     return ts;
   }
 

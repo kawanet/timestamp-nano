@@ -13,6 +13,13 @@ var Timestamp = (function() {
   var YEAR_SLOT = 3200; // years per slot
   var DAY_SLOT = (365 * 400 + 97) * YEAR_SLOT / 400; // days per slot
   var SEC_SLOT = SEC_DAY * DAY_SLOT; // seconds per slot
+  var MSEC_SLOT = SEC_SLOT * 1000; // mseconds per slot
+
+  // 15.9.1.1 Time Values and Time Range
+  // The actual range of times supported by ECMAScript Date objects is
+  // exactly –100,000,000 days to 100,000,000 days measured relative to
+  // midnight at the beginning of 01 January, 1970 UTC.
+  var MAX_MSEC = 1000 * 10000 * 10000 * SEC_DAY;
 
   var BIT24 = 0x1000000;
   var BIT32 = 0x10000 * 0x10000;
@@ -72,10 +79,12 @@ var Timestamp = (function() {
   return Timestamp;
 
   function Timestamp(time, nano, year) {
-    if (!(this instanceof Timestamp)) return new Timestamp(time, nano, year);
-    this.time = +time || 0;
-    this.nano = +nano || 0;
-    this.year = +year || 0;
+    var ts = this;
+    if (!(ts instanceof Timestamp)) return new Timestamp(time, nano, year);
+    ts.time = +time || 0;
+    ts.nano = +nano || 0;
+    ts.year = +year || 0;
+    normalize(ts);
   }
 
   function getYear() {
@@ -83,18 +92,62 @@ var Timestamp = (function() {
     return year + this.year;
   }
 
-  function toDate() {
-    var ts = this;
+  function normalize(ts) {
+    var year = ts.year;
     var time = ts.time;
     var nano = ts.nano;
+    var changed;
+    var slot;
 
     // normalize nano
     if (nano < 0 || DEC6 <= nano) {
       var n = Math.floor(nano / DEC6);
-      ts.nano = nano - n * DEC6;
-      ts.time = time = time + n;
+      nano -= n * DEC6;
+      time += n;
+      changed = 1;
     }
 
+    var y = year % YEAR_SLOT;
+    if (time < -MAX_MSEC || MAX_MSEC < time || y) {
+      // shrink time into the minimal slot
+      slot = trunc(time / MSEC_SLOT);
+      if (slot) {
+        year += slot * YEAR_SLOT;
+        time -= slot * MSEC_SLOT;
+      }
+
+      // add year offset smaller than a slot
+      var dt = newDate(time);
+      dt.setUTCFullYear(y + dt.getUTCFullYear());
+      year -= y;
+      time = +dt;
+
+      // use full range of 100 million days.
+      slot = trunc(year / YEAR_SLOT);
+      var total = time + slot * MSEC_SLOT;
+      if (slot && -MAX_MSEC <= total && total <= MAX_MSEC) {
+        year -= slot * YEAR_SLOT;
+        time = total;
+      }
+
+      changed = 1;
+    }
+
+    if (changed) {
+      ts.year = year;
+      ts.time = time;
+      ts.nano = nano;
+    }
+
+    return ts;
+  }
+
+  function toDate() {
+    var ts = normalize(this);
+    return newDate(ts.time);
+  }
+
+  function newDate(time) {
     var dt = new Date(0);
     dt.setTime(time);
     return dt;
@@ -106,7 +159,8 @@ var Timestamp = (function() {
   }
 
   function getNano() {
-    return ((this.time % 1000) * DEC6 + this.nano + DEC9) % DEC9;
+    var ts = normalize(this);
+    return ((ts.time % 1000) * DEC6 + ts.nano + DEC9) % DEC9;
   }
 
   function fromString(string) {
@@ -177,10 +231,9 @@ var Timestamp = (function() {
   }
 
   function getTimeT() {
-    var ts = this;
-    var time = Math.floor(ts.toDate() / 1000);
+    var ts = normalize(this);
+    var time = Math.floor(ts.time / 1000);
 
-    // ts.toDate() make year property normalized
     var year = ts.year;
     if (year) time += year * DAY_SLOT * SEC_DAY / YEAR_SLOT;
 
@@ -280,12 +333,11 @@ var Timestamp = (function() {
     return writeInt64;
 
     function writeInt64(buffer, offset) {
-      var ts = this;
+      var ts = normalize(this);
       if (!buffer) buffer = [];
       offset |= 0;
 
-      // call ts.toDate() first to make year normalized
-      var second = Math.floor(ts.toDate() / 1000);
+      var second = Math.floor(ts.time / 1000);
       var day = ts.year * (DAY_SLOT * SEC_DAY / YEAR_SLOT);
       var high = trunc(day / BIT32) + trunc(second / BIT32);
       var low = (day % BIT32) + (second % BIT32);

@@ -7,8 +7,10 @@ matrix:
     - node_js: "4"
     - node_js: "6"
     - node_js: "8"
-    - node_js: "6"
-      env: BROWSER=1
+
+# SauceLabs: The environment you requested was unavailable.: Uh oh, you've run out of minutes!
+#   - node_js: "6"
+#     env: BROWSER=1
 
 addons:
   sauce_connect:

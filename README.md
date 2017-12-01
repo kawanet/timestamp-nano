@@ -1,6 +1,6 @@
 # Timestamp for 64-bit time_t, nanosecond precision and strftime
 
-[![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano)
+[![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano)
 
 JavaScript's native `Date` object has limits at the range for 275 thousand years
 and the precision of milliseconds.

@@ -33,6 +33,8 @@ describe(TITLE, function() {
     "+100000-01-01T00:00:00.001Z"
   ];
 
+  var hasDateBug = checkDateBug();
+
   Object.keys(TZ).forEach(function(name) {
     var tz = TZ[name];
     var title = getJSON(TIME[0], tz) + " (" + name + ")";
@@ -41,16 +43,32 @@ describe(TITLE, function() {
       TIME.forEach(function(time) {
         var json = getJSON(time, tz);
         var dt = new Date(json);
-
-        var ts = Timestamp.fromString(json);
-        assert.equal(+ts.toDate(), +dt, json);
+        test(json, +dt);
 
         var nocollon = json.replace(/:(\d+)$/, "$1");
-        ts = Timestamp.fromString(nocollon);
-        assert.equal(+ts.toDate(), +dt, json);
+        test(nocollon, +dt);
       });
     });
   });
+
+  function test(str, dt) {
+    var ts = Timestamp.fromString(str);
+    var time = +ts.toDate();
+
+    // ignore 1 millisecond difference on Safari
+    if (hasDateBug && Math.abs(time - dt) === 1) return;
+
+    assert.equal(time, dt, str);
+  }
+
+  /**
+   * Safari has a bug on parsing Date when both its time and timezone are negative value.
+   */
+
+  function checkDateBug() {
+    var date = +new Date("1969-12-31T23:59:59.999-01:00");
+    return date % 1000 !== 999;
+  }
 
   function getJSON(time, tz) {
     return time.replace(/Z$/, tz);

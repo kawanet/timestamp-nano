@@ -50,5 +50,6 @@ typedoc: $(DOC_HTML)
 $(DOC_HTML): $(DOC_SRC)
 	# TODO: exclude node_modules
 	./node_modules/.bin/typedoc --out $(DOCS_DIR) --includeDeclarations --readme /dev/null --mode file timestamp.d.ts
+	perl -i -pe 's/<li>Defined in <a.*//;' $(DOC_HTML)
 
 .PHONY: all clean test jshint mocha

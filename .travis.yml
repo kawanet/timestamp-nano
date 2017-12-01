@@ -7,3 +7,10 @@ matrix:
     - node_js: "4"
     - node_js: "6"
     - node_js: "8"
+    - node_js: "6"
+      env: BROWSER=1
+
+addons:
+  sauce_connect:
+    username: "timestamp-nano"
+    access_key: "6c92f65c-d84e-46ba-82de-310863f6b095"

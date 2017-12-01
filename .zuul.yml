@@ -1,4 +1,5 @@
 sauce_username: timestamp-nano
+sauce_key: "6c92f65c-d84e-46ba-82de-310863f6b095"
 name: timestamp-nano
 ui: mocha-bdd
 html: "test/zuul/zuul.html"

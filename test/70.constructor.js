@@ -2,9 +2,9 @@
 
 var assert = require("assert");
 
-var TtestItLE = __filename.split("/").pop();
+var TITLE = __filename.split("/").pop();
 
-describe(TtestItLE, function() {
+describe(TITLE, function() {
   var Timestamp = require("../timestamp");
   var DEC3 = 1000;
   var DEC8 = 100000000;

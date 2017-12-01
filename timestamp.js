@@ -199,8 +199,7 @@ var Timestamp = (function() {
       throw new TypeError("Invalid Date");
     }
 
-    normalize(ts);
-    return ts;
+    return normalize(ts);
   }
 
   function fromDate(date) {

@@ -164,8 +164,9 @@ var Timestamp = (function() {
   }
 
   function fromString(string) {
-    var tz;
+    var time;
     var ts = new Timestamp();
+    string += "";
 
     var array = string.replace(/^\s*[+\-]?\d+/, function(match) {
       var year = +match;
@@ -178,7 +179,7 @@ var Timestamp = (function() {
     }).replace(/(?:Z|([+\-]\d{2}):?(\d{2}))$/, function(match, hour, min) {
       // time zone
       if (hour < 0) min *= -1;
-      tz = ((+hour) * 60 + (+min)) * 60000;
+      time = ((+hour) * 60 + (+min)) * 60000;
       return "";
     }).replace(/\.\d+$/, function(match) {
       // nanoseconds
@@ -186,9 +187,18 @@ var Timestamp = (function() {
       return "";
     }).split(/\D+/);
 
-    array[1]--; // month starts from 0
+    if (array.length > 1) {
+      array[1]--; // month starts from 0
+    } else {
+      array[1] = 0;
+    }
 
-    ts.time = Date.UTC.apply(Date, array) - (tz || 0);
+    ts.time = time = Date.UTC.apply(Date, array) - (time || 0);
+
+    if (isNaN(time)) {
+      throw new TypeError("Invalid Date");
+    }
+
     normalize(ts);
     return ts;
   }
@@ -326,8 +336,8 @@ var Timestamp = (function() {
 
     function writeInt64(buffer, offset) {
       var ts = normalize(this);
-      if (!buffer) buffer = [];
-      offset |= 0;
+      if (!buffer) buffer = new Array(8);
+      checkRange(buffer, offset |= 0);
 
       var second = Math.floor(ts.time / 1000);
       var day = ts.year * (DAY_SLOT * SEC_DAY / YEAR_SLOT);
@@ -358,7 +368,7 @@ var Timestamp = (function() {
     return fromInt64;
 
     function fromInt64(buffer, offset) {
-      offset |= 0;
+      checkRange(buffer, offset |= 0);
       var high = readUint32(buffer, offset + posH);
       var low = readUint32(buffer, offset + posL);
       return fromTime(low, high);
@@ -370,6 +380,12 @@ var Timestamp = (function() {
           (buffer[offset + pos2] << 8) |
           buffer[offset + pos3]);
     }
+  }
+
+  function checkRange(buffer, offset) {
+    var last = buffer && buffer.length;
+    if (last == null) throw new TypeError("Invalid Buffer");
+    if (last < offset + 8) throw new RangeError("Out of range");
   }
 
   function Math_trunc(x) {

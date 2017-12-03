@@ -2,15 +2,20 @@
 
 [![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano)
 
-JavaScript's native `Date` object has limits at the range for 275 thousand years
-and the precision of milliseconds.
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/timestamp-nano.svg)](https://saucelabs.com/u/timestamp-nano)
+
+JavaScript's native `Date` will end at 275 thousand years later.
+64-bit signed `time_t` still works for 292 billion years, on the other hand.
+`Date` has only milliseconds precision since 20th century.
+Now we need longer range and smaller precisions.
+Try **[Live Demo](https://kawanet.github.io/timestamp-nano/demo/index.html)** now!
 
 ### Features
 
-- Long long range: 64-bit signed `time_t` for 292 billion years.
-- High precision: nanosecond = 0.000000001 second.
-- Formatter: `"%Y-%m-%dT%H:%M:%S.%NZ"`, `"%a, %b %d %X %Y %z (%Z)"`
-- Small: Just 3KB minified [timestamp.min.js](https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js) available for Web browsers.
+- Longer range for `time_t`: `+292277026596-12-04T15:30:07Z`
+- Nanoseconds precision: `1970-01-01T00:00:00.000000001Z`
+- Bundled formatter: `"%Y-%m-%dT%H:%M:%S.%NZ"`, `"%a, %b %d %X %Y %z (%Z)"`
+- Small: just 3KB minified [timestamp.min.js](https://rawgit.com/kawanet/timestamp-nano/master/dist/timestamp.min.js) available for Web browsers.
 - No dependencies: no other module required. Portable pure JavaScript.
 
 ### Synopsis

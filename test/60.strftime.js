@@ -61,11 +61,11 @@ describe(TITLE, function() {
 
   describe("strftime compatibility", function() {
     var YEARS = [2017, 2018, 2019, 2020];
-    var MONTHS = [1, 2, 12];
-    var DAYS = [1, 2, 28];
-    var HOURS = [0, 11, 12, 13, 23];
-    var MINUTES = [0, 1, 59];
-    var SECONDS = [0, 1, 59];
+    var MONTHS = [1, 12];
+    var DAYS = [1, 31];
+    var HOURS = [0, 12, 23];
+    var MINUTES = [0, 59];
+    var SECONDS = [0, 59];
 
     // not all patterns supported at Timestamp#toString
     var PATTERNS = [
@@ -120,6 +120,9 @@ describe(TITLE, function() {
 
     YEARS.forEach(function(year) {
       it("" + year, function() {
+        // this may take longer seconds at some environment
+        this.timeout(10000);
+
         var cnt = 0;
         MONTHS.forEach(function(month) {
           DAYS.forEach(function(day) {

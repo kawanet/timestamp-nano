@@ -6,7 +6,7 @@
  * @see https://github.com/kawanet/timestamp-nano
  */
 
-export declare class Timestamp {
+declare class Timestamp {
 
     /**
      * @param time - Milliseconds from epoch
@@ -22,7 +22,7 @@ export declare class Timestamp {
      * @param date - Milliseconds since epoch
      */
 
-    static fromDate(date: Date | number);
+    static fromDate(date: Date | number): Timestamp;
 
     /**
      * Creates a Timestamp instance from big endian 64bit time_t of 8 bytes sequence.
@@ -31,7 +31,8 @@ export declare class Timestamp {
      * @param offset
      */
 
-    static fromInt64BE(time: Array<number> | Uint8Array, offset?: number);
+    static fromInt64BE(time: Uint8Array, offset?: number): Timestamp;
+    static fromInt64BE(time: number[], offset?: number): Timestamp;
 
     /**
      * Creates a Timestamp instance from little endian 64bit time_t of 8 bytes sequence.
@@ -40,7 +41,8 @@ export declare class Timestamp {
      * @param offset
      */
 
-    static fromInt64LE(time: Array<number> | Uint8Array, offset?: number);
+    static fromInt64LE(time: Uint8Array, offset?: number): Timestamp;
+    static fromInt64LE(time: number[], offset?: number): Timestamp;
 
     /**
      * Creates a Timestamp instance from string like: "2017-11-26T11:27:58.737Z"
@@ -49,7 +51,7 @@ export declare class Timestamp {
      * @param string - W3C Date and Time Formats
      */
 
-    static fromString(string: string);
+    static fromString(string: string): Timestamp;
 
     /**
      * Creates a Timestamp instance from seconds since epoch aka time_t.
@@ -57,7 +59,7 @@ export declare class Timestamp {
      * @param time - Seconds since epoch
      */
 
-    static fromTimeT(time: number);
+    static fromTimeT(time: number): Timestamp;
 
     /**
      * Adds offset in nanosecond precision.
@@ -65,7 +67,7 @@ export declare class Timestamp {
      * @param nano - offset number for nanosecond precision in addition.
      */
 
-    addNano(nano: number): Timestamp;
+    addNano(nano: number): this;
 
     /**
      * Returns a number, between 0 and 999999999, representing the nanoseconds.
@@ -119,7 +121,8 @@ export declare class Timestamp {
      * @param offset
      */
 
-    writeInt64BE(buffer?: Array<number> | Uint8Array, offset?: number): Array<number> | Uint8Array;
+    writeInt64BE(buffer: Uint8Array, offset?: number): Uint8Array;
+    writeInt64BE(buffer?: number[], offset?: number): number[];
 
     /**
      * Writes little endian 64bit time_t of 8 bytes sequence.
@@ -128,5 +131,8 @@ export declare class Timestamp {
      * @param offset
      */
 
-    writeInt64LE(buffer?: Array<number> | Uint8Array, offset?: number): Array<number> | Uint8Array;
+    writeInt64LE(buffer: Uint8Array, offset?: number): Uint8Array;
+    writeInt64LE(buffer?: number[], offset?: number): number[];
 }
+
+export = Timestamp;

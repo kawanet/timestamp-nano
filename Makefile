@@ -7,7 +7,7 @@ JSDEST=./dist/timestamp.min.js
 JSGZIP=./dist/timestamp.min.js.gz
 
 DOCS_DIR=./docs/typedoc
-DOC_SRC=./timestamp.d.ts
+DOC_SRC=./typings/timestamp.d.ts
 DOC_HTML=./docs/typedoc/classes/timestamp.html
 DOCS_CSS_SRC=./assets/jsdoc.css
 DOCS_CSS_DEST=./docs/jsdoc/styles/jsdoc-default.css
@@ -48,8 +48,7 @@ jshint:
 typedoc: $(DOC_HTML)
 
 $(DOC_HTML): $(DOC_SRC)
-	# TODO: exclude node_modules
-	./node_modules/.bin/typedoc --out $(DOCS_DIR) --includeDeclarations --readme /dev/null --mode file timestamp.d.ts
+	./node_modules/.bin/typedoc --out $(DOCS_DIR) --includeDeclarations --readme /dev/null --mode file $(DOC_SRC)
 	perl -i -pe 's/<li>Defined in <a.*//;' $(DOC_HTML)
 
 .PHONY: all clean test jshint mocha

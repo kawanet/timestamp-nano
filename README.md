@@ -2,8 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano) [![Coverage Status](https://coveralls.io/repos/github/kawanet/timestamp-nano/badge.svg?branch=master)](https://coveralls.io/github/kawanet/timestamp-nano?branch=master)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/timestamp-nano.svg)](https://saucelabs.com/u/timestamp-nano)
-
 JavaScript's native `Date` will end at 275 thousand years later.
 64-bit signed `time_t` still works for 292 billion years, on the other hand.
 `Date` has only milliseconds precision since 20th century.

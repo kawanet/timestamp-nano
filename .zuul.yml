@@ -1,18 +1,3 @@
-sauce_username: timestamp-nano
-sauce_key: "6c92f65c-d84e-46ba-82de-310863f6b095"
 name: timestamp-nano
 ui: mocha-bdd
 html: "test/zuul/zuul.html"
-browsers:
-  - name: ie
-    version: "latest"
-  - name: chrome
-    version: "latest"
-  - name: firefox
-    version: "latest"
-  - name: safari
-    version: "latest"
-  - name: iphone
-    version: ["9.3", "latest"]
-  - name: android
-    version: ["4.4", "latest"]

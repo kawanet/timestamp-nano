@@ -27,13 +27,7 @@ $(JSGZIP): $(JSDEST)
 	gzip -9 < $(JSDEST) > $(JSGZIP)
 	ls -l $(JSDEST) $(JSGZIP)
 
-test:
-	@if [ "x$(BROWSER)" = "x" ]; then make test-node; else make test-browser; fi
-
-test-node: jshint mocha
-
-test-browser:
-	./node_modules/.bin/zuul -- $(TESTS)
+test: jshint mocha
 
 mocha:
 	./node_modules/.bin/mocha -R spec $(TESTS)

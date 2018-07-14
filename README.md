@@ -1,6 +1,6 @@
 # Timestamp for 64-bit time_t, nanosecond precision and strftime
 
-[![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano)
+[![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano) [![Coverage Status](https://coveralls.io/repos/github/kawanet/timestamp-nano/badge.svg?branch=master)](https://coveralls.io/github/kawanet/timestamp-nano?branch=master)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/timestamp-nano.svg)](https://saucelabs.com/u/timestamp-nano)
 
@@ -107,7 +107,7 @@ npm install timestamp-nano --save
 
 ### The MIT License (MIT)
 
-Copyright (c) 2017 Yusuke Kawasaki
+Copyright (c) 2017-2018 Yusuke Kawasaki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

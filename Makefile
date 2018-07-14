@@ -35,10 +35,6 @@ test-node: jshint mocha
 test-browser:
 	./node_modules/.bin/zuul -- $(TESTS)
 
-test-browser-local:
-	node -e 'process.exit(process.platform === "darwin" ? 0 : 1)' && sleep 1 && open http://localhost:4000/__zuul &
-	./node_modules/.bin/zuul --local 4000 -- $(TESTS)
-
 mocha:
 	./node_modules/.bin/mocha -R spec $(TESTS)
 

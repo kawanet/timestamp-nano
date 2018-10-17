@@ -4,7 +4,14 @@
   ],
   "compilerOptions": {
     "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "removeComments": false,
+    "skipLibCheck": false,
+    "strictNullChecks": true,
     "target": "ES5",
     "types": [
       "node",

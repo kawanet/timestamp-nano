@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import Timestamp = require("../");
 
-const TITLE = __filename.split("/").pop();
+const TITLE = __filename.split("/").pop() as string;
 
 describe(TITLE, () => {
     it("typescript", () => {

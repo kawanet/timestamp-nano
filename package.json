@@ -1,7 +1,7 @@
 {
   "name": "timestamp-nano",
   "description": "Timestamp for 64-bit time_t, nanosecond precision and strftime",
-  "version": "0.99.1017",
+  "version": "1.0.0",
   "author": "@kawanet",
   "bugs": {
     "url": "https://github.com/kawanet/timestamp-nano/issues"
@@ -48,7 +48,7 @@
     "jshint": "./node_modules/.bin/jshint .",
     "mocha": "./node_modules/.bin/mocha test/*.js",
     "test": "make test",
-    "zuul-local": "./node_modules/.bin/zuul --local 4000 --ui mocha-bdd test/*.js"
+    "zuul-local": "./node_modules/.bin/zuul --open --local 4000 --ui mocha-bdd test/*.js"
   },
   "typings": "typings/timestamp.d.ts"
 }

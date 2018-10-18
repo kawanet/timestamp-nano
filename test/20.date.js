@@ -108,25 +108,25 @@ describe(TITLE, function() {
 
     it(title, function() {
       var ts = Timestamp.fromDate(src);
-      assert.equal(ts.toJSON(), json, "toJSON");
-      assert.equal(ts.getYear(), year, "getYear");
-      assert.equal(ts.getNano(), nano);
+      assert.strictEqual(ts.toJSON(), json, "toJSON");
+      assert.strictEqual(ts.getYear(), year, "getYear");
+      assert.strictEqual(ts.getNano(), nano);
 
       var dt = ts.toDate();
-      assert.equal(dt.getUTCFullYear(), src.getUTCFullYear(), "getUTCFullYear");
-      assert.equal(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
-      assert.equal(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
-      assert.equal(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
-      assert.equal(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
-      assert.equal(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
-      assert.equal(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
+      assert.strictEqual(dt.getUTCFullYear(), src.getUTCFullYear(), "getUTCFullYear");
+      assert.strictEqual(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
+      assert.strictEqual(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
+      assert.strictEqual(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
+      assert.strictEqual(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
+      assert.strictEqual(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
+      assert.strictEqual(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
 
       // round trip
       var ts2 = Timestamp.fromString(json);
-      assert.equal(ts2.toJSON(), ts.toJSON(), "toJSON");
-      assert.equal(ts2.getYear(), ts.getYear(), "getYear");
-      assert.equal(ts2.getTimeT(), ts.getTimeT(), "getTimeT");
-      assert.equal(ts2.getNano(), ts.getNano(), "getNano");
+      assert.strictEqual(ts2.toJSON(), ts.toJSON(), "toJSON");
+      assert.strictEqual(ts2.getYear(), ts.getYear(), "getYear");
+      assert.strictEqual(ts2.getTimeT(), ts.getTimeT(), "getTimeT");
+      assert.strictEqual(ts2.getNano(), ts.getNano(), "getNano");
     });
   }
 });

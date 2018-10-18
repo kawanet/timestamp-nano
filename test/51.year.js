@@ -60,13 +60,13 @@ describe(TITLE, function() {
       it(title, function() {
         // build from Int64BE array
         var ts = Timestamp.fromInt64BE(array);
-        assert.equal(ts.getYear(), +year, "getYear");
-        assert.equal(ts.toString("%Y"), year, "toString");
+        assert.strictEqual(ts.getYear(), +year, "getYear");
+        assert.strictEqual(ts.toString("%Y"), year, "toString");
 
         // round trip for confirmation
         ts = Timestamp.fromString(ts.toString());
-        assert.equal(ts.getYear(), +year, "getYear");
-        assert.equal(ts.toString("%Y"), year, "toString");
+        assert.strictEqual(ts.getYear(), +year, "getYear");
+        assert.strictEqual(ts.toString("%Y"), year, "toString");
       });
     });
 

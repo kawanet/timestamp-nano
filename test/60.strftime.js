@@ -28,7 +28,7 @@ describe(TITLE, function() {
       var ts = Timestamp.fromDate(utc);
 
       it(format, function() {
-        assert.equal(ts.toString(format), FORMATS[format], format);
+        assert.strictEqual(ts.toString(format), FORMATS[format], format);
       });
     });
   });
@@ -42,7 +42,7 @@ describe(TITLE, function() {
         var ts = Timestamp.fromDate(utc);
         var fmt = "%b";
         var str = strftime(fmt, dt);
-        assert.equal(ts.toString(fmt), str, fmt);
+        assert.strictEqual(ts.toString(fmt), str, fmt);
       }
     });
 
@@ -54,7 +54,7 @@ describe(TITLE, function() {
         var ts = Timestamp.fromDate(utc);
         var fmt = "%a";
         var str = strftime(fmt, dt);
-        assert.equal(ts.toString(fmt), str, fmt);
+        assert.strictEqual(ts.toString(fmt), str, fmt);
       }
     });
   });
@@ -134,7 +134,7 @@ describe(TITLE, function() {
                   var ts = new Timestamp(utc);
                   PATTERNS.forEach(function(fmt) {
                     if (!fmt) return;
-                    assert.equal(ts.toString(fmt), strftime(fmt, dt), fmt);
+                    assert.strictEqual(ts.toString(fmt), strftime(fmt, dt), fmt);
                     cnt++;
                   });
                 });
@@ -150,10 +150,10 @@ describe(TITLE, function() {
   describe("invalid specifier", function() {
     var ts = new Timestamp();
     it("% ", function() {
-      assert.equal(ts.toString("% "), "% ");
+      assert.strictEqual(ts.toString("% "), "% ");
     });
     it("%\\n", function() {
-      assert.equal(ts.toString("%\n"), "%\n");
+      assert.strictEqual(ts.toString("%\n"), "%\n");
     });
   });
 });

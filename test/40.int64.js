@@ -67,45 +67,45 @@ describe(TITLE, function() {
       var ts1 = Timestamp.fromInt64BE(buf0);
       testIt(ts1);
       var buf1 = ts1.writeInt64BE();
-      assert.equal(join(buf1), join(buf0), "writeInt64BE");
+      assert.strictEqual(join(buf1), join(buf0), "writeInt64BE");
 
       // round trip
       var ts2 = Timestamp.fromInt64LE(buf1.reverse());
       testIt(ts2);
       var buf2 = ts2.writeInt64LE().reverse();
-      assert.equal(join(buf2), join(buf0), "writeInt64LE");
+      assert.strictEqual(join(buf2), join(buf0), "writeInt64LE");
     });
 
     function testIt(ts) {
-      assert.equal(ts.getYear(), year, "getYear");
+      assert.strictEqual(ts.getYear(), year, "getYear");
 
       var dt = ts.toDate();
 
       // exact match until 100000000 days
       if (json) {
-        assert.equal(ts.toJSON(), json, "toJSON");
+        assert.strictEqual(ts.toJSON(), json, "toJSON");
       }
 
       if (src) {
-        assert.equal(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
-        assert.equal(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
-        assert.equal(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
-        assert.equal(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
-        assert.equal(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
-        assert.equal(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
-        assert.equal(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
+        assert.strictEqual(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
+        assert.strictEqual(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
+        assert.strictEqual(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
+        assert.strictEqual(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
+        assert.strictEqual(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
+        assert.strictEqual(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
+        assert.strictEqual(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
       }
 
-      assert.equal(mod(dt.getUTCFullYear()), mod(year), "getUTCFullYear");
-      assert.equal(dt.getUTCMinutes(), minute, "getUTCMinutes");
-      assert.equal(dt.getUTCSeconds(), second, "getUTCSeconds");
-      assert.equal(dt.getUTCMilliseconds(), 0, "getUTCMilliseconds");
-      assert.equal(ts.getNano(), 0, "getNano");
+      assert.strictEqual(mod(dt.getUTCFullYear()), mod(year), "getUTCFullYear");
+      assert.strictEqual(dt.getUTCMinutes(), minute, "getUTCMinutes");
+      assert.strictEqual(dt.getUTCSeconds(), second, "getUTCSeconds");
+      assert.strictEqual(dt.getUTCMilliseconds(), 0, "getUTCMilliseconds");
+      assert.strictEqual(ts.getNano(), 0, "getNano");
 
       // allow minor error only caused by double precision
       var t = ts.getTimeT();
       if (Math.abs((t - time) / t) > 0.000001) {
-        assert.equal(t, time, "getTimeT");
+        assert.strictEqual(t, time, "getTimeT");
       }
     }
   }

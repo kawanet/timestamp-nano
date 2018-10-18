@@ -100,26 +100,26 @@ describe(TITLE, function() {
       var year = ts.getYear();
       var nano = ts.getNano();
 
-      assert.equal(ts.toJSON(), json, "toJSON");
+      assert.strictEqual(ts.toJSON(), json, "toJSON");
 
       var bigBE = ts.writeInt64BE();
 
       ts = Timestamp.fromInt64BE(bigBE).addNano(ts.getNano());
-      assert.equal(ts.getYear(), year, "fromInt64BE: getYear");
-      assert.equal(ts.getNano(), nano, "fromInt64BE: getNano");
-      assert.equal(ts.toJSON(), json, "fromInt64BE: toJSON");
+      assert.strictEqual(ts.getYear(), year, "fromInt64BE: getYear");
+      assert.strictEqual(ts.getNano(), nano, "fromInt64BE: getNano");
+      assert.strictEqual(ts.toJSON(), json, "fromInt64BE: toJSON");
 
       ts = Timestamp.fromString(json);
-      assert.equal(ts.getNano(), nano, "fromString: getNano");
-      assert.equal(ts.toJSON(), json, "fromString: toJSON");
-      assert.equal(ts.getYear(), year, "fromString: getYear");
+      assert.strictEqual(ts.getNano(), nano, "fromString: getNano");
+      assert.strictEqual(ts.toJSON(), json, "fromString: toJSON");
+      assert.strictEqual(ts.getYear(), year, "fromString: getYear");
 
       var bigLE = ts.writeInt64LE();
       ts = Timestamp.fromInt64LE(bigLE).addNano(ts.getNano());
-      assert.equal(ts.toJSON(), json, "fromInt64LE: toJSON");
-      assert.equal(ts.getYear(), year, "fromInt64LE: getYear");
-      assert.equal(ts.getNano(), nano, "fromInt64LE: getNano");
-      assert.equal(join(bigLE), join(bigBE.reverse()));
+      assert.strictEqual(ts.toJSON(), json, "fromInt64LE: toJSON");
+      assert.strictEqual(ts.getYear(), year, "fromInt64LE: getYear");
+      assert.strictEqual(ts.getNano(), nano, "fromInt64LE: getNano");
+      assert.strictEqual(join(bigLE), join(bigBE.reverse()));
     });
   });
 

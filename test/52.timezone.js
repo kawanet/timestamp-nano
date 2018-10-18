@@ -58,7 +58,7 @@ describe(TITLE, function() {
     // ignore 1 millisecond difference on Safari
     if (hasDateBug && Math.abs(time - dt) === 1) return;
 
-    assert.equal(time, dt, str);
+    assert.strictEqual(time, dt, str);
   }
 
   /**

@@ -12,31 +12,31 @@ describe(TITLE, () => {
         const json = "1970-01-01T00:00:00.000Z";
 
         // static methods
-        assert.equal(Timestamp.fromDate(dt).toString(), str);
-        assert.equal(Timestamp.fromDate(dt).toString(), str);
-        assert.equal(Timestamp.fromInt64BE(buf).toString(), str);
-        assert.equal(Timestamp.fromInt64LE(buf).toString(), str);
-        assert.equal(Timestamp.fromString(str).toString(), str);
-        assert.equal(Timestamp.fromTimeT(time).toString(), str);
+        assert.strictEqual(Timestamp.fromDate(dt).toString(), str);
+        assert.strictEqual(Timestamp.fromDate(dt).toString(), str);
+        assert.strictEqual(Timestamp.fromInt64BE(buf).toString(), str);
+        assert.strictEqual(Timestamp.fromInt64LE(buf).toString(), str);
+        assert.strictEqual(Timestamp.fromString(str).toString(), str);
+        assert.strictEqual(Timestamp.fromTimeT(time).toString(), str);
 
         // instance
         const ts = new Timestamp(0);
         assert(ts instanceof Timestamp);
-        assert.equal(typeof ts.getNano, "function");
-        assert.equal(typeof ts.getTimeT, "function");
-        assert.equal(typeof ts.getYear, "function");
-        assert.equal(typeof ts.toDate, "function");
-        assert.equal(typeof ts.toJSON, "function");
-        assert.equal(typeof ts.toString, "function");
-        assert.equal(typeof ts.writeInt64BE, "function");
-        assert.equal(typeof ts.writeInt64LE, "function");
+        assert.strictEqual(typeof ts.getNano, "function");
+        assert.strictEqual(typeof ts.getTimeT, "function");
+        assert.strictEqual(typeof ts.getYear, "function");
+        assert.strictEqual(typeof ts.toDate, "function");
+        assert.strictEqual(typeof ts.toJSON, "function");
+        assert.strictEqual(typeof ts.toString, "function");
+        assert.strictEqual(typeof ts.writeInt64BE, "function");
+        assert.strictEqual(typeof ts.writeInt64LE, "function");
 
         // methods
-        assert.equal(ts.getNano(), 0);
-        assert.equal(ts.getTimeT(), 0);
-        assert.equal(ts.getYear(), 1970);
-        assert.equal(+ts.toDate(), +dt);
-        assert.equal(ts.toJSON(), json);
-        assert.equal(ts.toString(), str);
+        assert.strictEqual(ts.getNano(), 0);
+        assert.strictEqual(ts.getTimeT(), 0);
+        assert.strictEqual(ts.getYear(), 1970);
+        assert.strictEqual(+ts.toDate(), +dt);
+        assert.strictEqual(ts.toJSON(), json);
+        assert.strictEqual(ts.toString(), str);
     });
 });

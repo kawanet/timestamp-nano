@@ -56,20 +56,20 @@ describe(TITLE, function() {
 
     it(title, function() {
       var ts = Timestamp.fromTimeT(time);
-      assert.equal(ts.toJSON(), json, "toJSON");
-      assert.equal(ts.getYear(), year, "getYear");
-      assert.equal(ts.getTimeT(), time, "getTimeT");
-      assert.equal(ts.getNano(), nano);
+      assert.strictEqual(ts.toJSON(), json, "toJSON");
+      assert.strictEqual(ts.getYear(), year, "getYear");
+      assert.strictEqual(ts.getTimeT(), time, "getTimeT");
+      assert.strictEqual(ts.getNano(), nano);
 
       var dt = ts.toDate();
-      assert.equal(dt.getUTCFullYear(), src.getUTCFullYear(), "getUTCFullYear");
-      assert.equal(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
-      assert.equal(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
-      assert.equal(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
-      assert.equal(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
-      assert.equal(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
-      assert.equal(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
-      assert.equal(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
+      assert.strictEqual(dt.getUTCFullYear(), src.getUTCFullYear(), "getUTCFullYear");
+      assert.strictEqual(dt.getUTCMonth(), src.getUTCMonth(), "getUTCMonth");
+      assert.strictEqual(dt.getUTCDate(), src.getUTCDate(), "getUTCDate");
+      assert.strictEqual(dt.getUTCDay(), src.getUTCDay(), "getUTCDay");
+      assert.strictEqual(dt.getUTCHours(), src.getUTCHours(), "getUTCHours");
+      assert.strictEqual(dt.getUTCMinutes(), src.getUTCMinutes(), "getUTCMinutes");
+      assert.strictEqual(dt.getUTCSeconds(), src.getUTCSeconds(), "getUTCSeconds");
+      assert.strictEqual(dt.getUTCMilliseconds(), src.getUTCMilliseconds(), "getUTCMilliseconds");
     });
   }
 

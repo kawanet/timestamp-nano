@@ -52,7 +52,7 @@ describe(TITLE, function() {
       var expSec = dt0.getUTCSeconds();
       var prev = (((msec % 1000) + 1000) % 1000) * DEC6;
       var nano = ts.getNano();
-      assert.equal(nano, prev, "getNano");
+      assert.strictEqual(nano, prev, "getNano");
 
       OFFSET.forEach(function(offset) {
         offset *= direction;
@@ -61,13 +61,13 @@ describe(TITLE, function() {
         var dt1 = ts.toDate();
         var expNano = (prev + offset + DEC9) % DEC9;
         nano = ts.getNano();
-        assert.equal(nano, expNano, "getNano: " + offset);
+        assert.strictEqual(nano, expNano, "getNano: " + offset);
 
         var next = prev + offset;
         if (next < 0 || DEC9 < next) {
           expSec = (expSec + direction + 60) % 60;
         }
-        assert.equal(dt1.getUTCSeconds(), expSec, "getUTCSeconds");
+        assert.strictEqual(dt1.getUTCSeconds(), expSec, "getUTCSeconds");
       });
     });
   }

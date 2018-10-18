@@ -29,7 +29,7 @@ describe(TITLE, function() {
     function test(src, exp) {
       it(src, function() {
         var ts = Timestamp.fromString(src);
-        assert.equal(ts.toJSON(), exp, src);
+        assert.strictEqual(ts.toJSON(), exp, src);
       });
     }
   });

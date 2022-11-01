@@ -20,7 +20,10 @@ describe(TITLE, function() {
       "%a, %b %d %X %Y %z (%Z)": "Tue, Jan 02 03:04:05 2018 +0000 (GMT)",
 
       // Apache Log
-      "%d/%b/%Y:%H:%M:%S %z": "02/Jan/2018:03:04:05 +0000"
+      "%d/%b/%Y:%H:%M:%S %z": "02/Jan/2018:03:04:05 +0000",
+
+      // Decimal epoch seconds
+      "%s.%N": "1514862245.006000000"
     };
 
     Object.keys(FORMATS).forEach(function(format) {
@@ -101,7 +104,7 @@ describe(TITLE, function() {
       // "%P", // Like %p but in lowercase: "am" or "pm" or a corresponding string for the current locale.
       "%R", // The time in 24-hour notation (%H:%M). For a version including the seconds, see %T below.
       // "%r", // The time in a.m. or p.m. notation. In the POSIX locale this is equivalent to %I:%M:%S %p.
-      // "%s", // The number of seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).
+      "%s", // The number of seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).
       "%S", // The second as a decimal number (range 00 to 60). (The range is up to 60 to allow for occasional leap seconds.)
       "%T", // The time in 24-hour notation (%H:%M:%S).
       "%t", // A tab character.

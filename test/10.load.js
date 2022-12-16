@@ -8,7 +8,7 @@ describe(TITLE, function() {
   var Timestamp, ts;
 
   it("require", function() {
-    Timestamp = require("../timestamp");
+    Timestamp = require("../");
   });
 
   it("constructor", function() {

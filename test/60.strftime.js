@@ -6,7 +6,7 @@ var strftime = require("strftime");
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
   strftime = strftime.localizeByIdentifier("en_US");
 
   describe("common strftime formats", function() {

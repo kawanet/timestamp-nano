@@ -7,7 +7,7 @@ var Int64BE = require("int64-buffer").Int64BE;
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
 
   var BIT32 = 0x10000 * 0x10000;
   var DAY = 24 * 3600; // seconds per 1 day

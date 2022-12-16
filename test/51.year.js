@@ -6,7 +6,7 @@ var Int64BE = require("int64-buffer").Int64BE;
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
   var SEC_PER_YEAR = 24 * 3600 * (365 * 400 + 97) / 400; // second per average year
 
   describe("year", function() {

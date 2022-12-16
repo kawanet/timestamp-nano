@@ -1,7 +1,7 @@
 #!/usr/bin/env bash -c make
 
 SRC=./timestamp.js
-TESTS=*.json ./test/*.js
+TESTS=./test/*.js
 TARGET=./dist
 JSDEST=./dist/timestamp.min.js
 JSGZIP=./dist/timestamp.min.js.gz

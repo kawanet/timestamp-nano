@@ -10,3 +10,4 @@ docs/typedoc/interfaces
 docs/typedoc/modules
 node_modules
 npm-debug.log*
+package-lock.json

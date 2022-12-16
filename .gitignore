@@ -1,10 +1,12 @@
 *.min.js.gz
+*.tgz
 *~
 .DS_Store
 .Thumbs
 ._*
 .idea
 .nyc_output
+build/
 docs/typedoc/classes/[^t]*
 docs/typedoc/interfaces
 docs/typedoc/modules

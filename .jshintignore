@@ -1,4 +1,5 @@
 *~
+build/
 dist/*.min.js
 docs/typedoc
 node_modules

@@ -41,4 +41,12 @@ $(DOC_HTML): $(DOC_SRC)
 	./node_modules/.bin/typedoc --out $(DOCS_DIR) --includeDeclarations --readme /dev/null --mode file $(DOC_SRC)
 	perl -i -pe 's/<li>Defined in <a.*//;' $(DOC_HTML)
 
+test-browser: build/test-browser.js
+	echo '# open "browser/test.html"'
+
+build/test-browser.js:
+	mkdir -p build/
+	./node_modules/.bin/browserify --list ./test/*.js | sort
+	./node_modules/.bin/browserify -o $@ ./test/*.js
+
 .PHONY: all clean test jshint mocha

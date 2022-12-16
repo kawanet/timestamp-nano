@@ -12,7 +12,7 @@ DOC_HTML=./docs/typedoc/classes/timestamp.html
 DOCS_CSS_SRC=./assets/jsdoc.css
 DOCS_CSS_DEST=./docs/jsdoc/styles/jsdoc-default.css
 
-all: test $(TARGET) $(JSGZIP) typedoc
+all: test $(TARGET) $(JSGZIP) # typedoc
 
 clean:
 	rm -fr $(JSDEST) $(JSGZIP) # $(DOCS_DIR)

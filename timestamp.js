@@ -260,7 +260,8 @@ var Timestamp = (function() {
       b: b,
       d: d,
       e: e,
-      m: m
+      m: m,
+      s: s
     };
 
     return strftime(format || FMT_JSON);
@@ -327,6 +328,10 @@ var Timestamp = (function() {
 
     function b() {
       return FMT_MONTH[dt.getUTCMonth()];
+    }
+
+    function s() {
+      return ts.getTimeT();
     }
   }
 

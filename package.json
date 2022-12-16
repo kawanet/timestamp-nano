@@ -14,7 +14,7 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "strftime": "^0.10.1",
-    "typedoc": "^0.23.22",
+    "typedoc": "^0.13.0",
     "uglify-js": "^3.17"
   },
   "engines": {

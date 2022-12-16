@@ -15,7 +15,7 @@ DOCS_CSS_DEST=./docs/jsdoc/styles/jsdoc-default.css
 all: test $(TARGET) $(JSGZIP) typedoc
 
 clean:
-	rm -fr $(JSDEST) $(JSGZIP) $(DOCS_DIR)
+	rm -fr $(JSDEST) $(JSGZIP) # $(DOCS_DIR)
 
 $(TARGET):
 	mkdir -p $(TARGET)

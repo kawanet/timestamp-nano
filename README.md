@@ -1,6 +1,8 @@
 # Timestamp for 64-bit time_t, nanosecond precision and strftime
 
 [![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano)
+[![npm version](https://img.shields.io/npm/v/timestamp-nano)](https://www.npmjs.com/package/timestamp-nano)
+[![gzip size](https://img.badgesize.io/https://unpkg.com/timestamp-nano/dist/timestamp.min.js?compression=gzip)](https://unpkg.com/timestamp-nano/dist/timestamp.min.js)
 
 JavaScript's native `Date` will end at 275 thousand years later.
 64-bit signed `time_t` still works for 292 billion years, on the other hand.

@@ -20,6 +20,12 @@
   "engines": {
     "node": ">= 4.5.0"
   },
+  "files": [
+    "browser/import.js",
+    "dist/timestamp.min.js",
+    "timestamp.js",
+    "typings/timestamp.d.ts"
+  ],
   "homepage": "https://github.com/kawanet/timestamp-nano#readme",
   "jshintConifg": {
     "undef": true,

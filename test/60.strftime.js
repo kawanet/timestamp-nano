@@ -118,7 +118,7 @@ describe(TITLE, function() {
       "%Y", // The year as a decimal number including the century.
       // "%y", // The year as a decimal number without a century (range 00 to 99).
       // "%Z", // The timezone name or abbreviation.
-      // "%z", // The +hhmm or -hhmm numeric timezone (that is, the hour and minute offset from UTC).
+      "%z", // The +hhmm or -hhmm numeric timezone (that is, the hour and minute offset from UTC).
       null];
 
     YEARS.forEach(function(year) {
@@ -132,12 +132,11 @@ describe(TITLE, function() {
             HOURS.forEach(function(hour) {
               MINUTES.forEach(function(minute) {
                 SECONDS.forEach(function(second) {
-                  var dt = new Date(year, month - 1, day, hour, minute, second);
                   var utc = Date.UTC(year, month - 1, day, hour, minute, second);
                   var ts = new Timestamp(utc);
                   PATTERNS.forEach(function(fmt) {
                     if (!fmt) return;
-                    assert.strictEqual(ts.toString(fmt), strftime(fmt, dt), fmt);
+                    assert.strictEqual(ts.toString(fmt), strftime.timezone(0)(fmt, new Date(utc)), fmt);
                     cnt++;
                   });
                 });

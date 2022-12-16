@@ -7,6 +7,10 @@
   "bugs": {
     "url": "https://github.com/kawanet/timestamp-nano/issues"
   },
+  "contributors": [
+    "Yusuke Kawasaki <u-suke@kawa.net>",
+    "Trevor Robinson <tprobinson93@protonmail.com>"
+  ],
   "devDependencies": {
     "browserify": "^17.0.0",
     "int64-buffer": "^1.0.1",

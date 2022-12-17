@@ -5,7 +5,7 @@ var assert = require("assert");
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
   var DAY = 24 * 3600; // seconds per 1 day
 
   var SECONDS = [

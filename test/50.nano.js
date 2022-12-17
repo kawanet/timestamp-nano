@@ -5,7 +5,7 @@ var assert = require("assert");
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
   var DEC6 = 1000 * 1000;
   var DEC9 = 1000 * 1000 * 1000;
 

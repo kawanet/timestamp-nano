@@ -1,11 +1,13 @@
 # Timestamp for 64-bit time_t, nanosecond precision and strftime
 
-[![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano) [![Build Status](https://travis-ci.org/kawanet/timestamp-nano.svg?branch=master)](https://travis-ci.org/kawanet/timestamp-nano) [![Coverage Status](https://coveralls.io/repos/github/kawanet/timestamp-nano/badge.svg?branch=master)](https://coveralls.io/github/kawanet/timestamp-nano?branch=master)
+[![npm version](https://badge.fury.io/js/timestamp-nano.svg)](https://badge.fury.io/js/timestamp-nano)
+[![npm version](https://img.shields.io/npm/v/timestamp-nano)](https://www.npmjs.com/package/timestamp-nano)
+[![gzip size](https://img.badgesize.io/https://unpkg.com/timestamp-nano/dist/timestamp.min.js?compression=gzip)](https://unpkg.com/timestamp-nano/dist/timestamp.min.js)
 
 JavaScript's native `Date` will end at 275 thousand years later.
 64-bit signed `time_t` still works for 292 billion years, on the other hand.
 `Date` has only milliseconds precision since 20th century.
-Now we need longer range and smaller precisions.
+Now we need longer range and higher precisions.
 Try **[Live Demo](https://kawanet.github.io/timestamp-nano/demo/index.html)** now!
 
 ### Features
@@ -94,18 +96,15 @@ npm install timestamp-nano --save
 
 - [https://github.com/kawanet/timestamp-nano](https://github.com/kawanet/timestamp-nano)
 
-### Tests
-
-- [https://travis-ci.org/kawanet/timestamp-nano](https://travis-ci.org/kawanet/timestamp-nano)
-
 ### See Also
 
 - [https://www.npmjs.com/package/int64-buffer](https://www.npmjs.com/package/int64-buffer) - for 64bit `time_t` long long value
 - [https://www.npmjs.com/package/strftime](https://www.npmjs.com/package/strftime) - for formatting with timezone or locale
+- [https://github.com/kawanet/cdate](https://github.com/kawanet/cdate) - cdate - a compact calendar date and strftime
 
 ### The MIT License (MIT)
 
-Copyright (c) 2017-2018 Yusuke Kawasaki
+Copyright (c) 2017-2022 Yusuke Kawasaki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -5,7 +5,7 @@ var assert = require("assert");
 var TITLE = __filename.split("/").pop();
 
 describe(TITLE, function() {
-  var Timestamp = require("../timestamp");
+  var Timestamp = require("../");
 
   describe("https://www.w3.org/TR/NOTE-datetime", function() {
     // YYYY (eg 1997)
